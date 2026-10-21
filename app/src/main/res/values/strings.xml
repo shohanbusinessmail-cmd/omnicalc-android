@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OmniCalc</string>
+    <string name="app_tagline">All Your Math. One Place.</string>
+    <string name="tagline">All Your Math. One Place.</string>
+
+    <!-- Navigation destinations -->
+    <string name="nav_calculate">Calculate</string>
+    <string name="nav_scientific">Scientific</string>
+    <string name="nav_formulas">Formulas</string>
+    <string name="nav_tools">Tools</string>
+    <string name="nav_library">Library</string>
+
+    <!-- Common actions -->
+    <string name="action_copy">Copy</string>
+    <string name="action_share">Share</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_search">Search</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_close">Close</string>
+    <string name="action_ok">OK</string>
+    <string name="action_cancel">Cancel</string>
+
+    <!-- Errors -->
+    <string name="error_generic">Something went wrong. Check your input.</string>
+</resources>

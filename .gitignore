@@ -1,0 +1,29 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+local.properties
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Signing / secrets — never commit
+*.jks
+*.keystore
+keystore.properties
+*.pepk
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs & reports (keep out of git; CI uploads them as artifacts)
+*.log
+reports/
+
+# Local toolchain notes
+tools/

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base app theme. Material DayNight provided by Android framework;
+         Compose supplies the real colors via OmniCalcTheme. -->
+    <style name="Theme.OmniCalc" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/omni_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!-- Splash theme (androidx core-splashscreen backport) -->
+    <style name="Theme.OmniCalc.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/omni_primary</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.OmniCalc</item>
+    </style>
+</resources>

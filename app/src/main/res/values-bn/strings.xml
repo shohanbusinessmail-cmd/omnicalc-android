@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OmniCalc</string>
+    <string name="app_tagline">সব হিসাব, এক জায়গায়।</string>
+    <string name="tagline">সব হিসাব, এক জায়গায়।</string>
+
+    <!-- Navigation destinations -->
+    <string name="nav_calculate">হিসাব</string>
+    <string name="nav_scientific">বৈজ্ঞানিক</string>
+    <string name="nav_formulas">সূত্র</string>
+    <string name="nav_tools">টুলস</string>
+    <string name="nav_library">লাইব্রেরি</string>
+
+    <!-- Common actions -->
+    <string name="action_copy">কপি</string>
+    <string name="action_share">শেয়ার</string>
+    <string name="action_delete">মুছুন</string>
+    <string name="action_clear">পরিষ্কার</string>
+    <string name="action_search">খুঁজুন</string>
+    <string name="action_settings">সেটিংস</string>
+    <string name="action_close">বন্ধ</string>
+    <string name="action_ok">ঠিক আছে</string>
+    <string name="action_cancel">বাতিল</string>
+
+    <!-- Errors -->
+    <string name="error_generic">কিছু একটা সমস্যা হয়েছে। ইনপুট পরীক্ষা করুন।</string>
+</resources>

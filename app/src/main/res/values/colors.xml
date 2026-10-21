@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand palette (spec §2.1) -->
+    <color name="omni_primary">#326CF4</color>
+    <color name="omni_primary_container">#E8EEFF</color>
+    <color name="omni_background">#F4F6FA</color>
+    <color name="omni_surface">#FFFFFF</color>
+    <color name="omni_on_primary">#FFFFFF</color>
+    <color name="omni_text_main">#172033</color>
+    <color name="omni_text_secondary">#64748B</color>
+    <color name="omni_border">#E4E8F0</color>
+    <color name="omni_error_background">#FCE9E9</color>
+    <color name="omni_error_text">#B42318</color>
+
+    <!-- Adaptive icon -->
+    <color name="ic_launcher_background">#326CF4</color>
+    <color name="ic_launcher_foreground">#FFFFFF</color>
+</resources>
