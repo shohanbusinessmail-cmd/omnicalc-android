@@ -67,6 +67,7 @@ dependencies {
     implementation(project(":feature:scientific"))
     implementation(project(":feature:library"))
     implementation(project(":feature:formulas"))
+    implementation(project(":feature:tools"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

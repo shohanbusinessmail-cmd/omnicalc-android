@@ -137,7 +137,7 @@ fun FormulasScreen(
 private fun CategoryButton(label: String, selected: Boolean, onClick: () -> Unit) {
     androidx.compose.material3.TextButton(
         onClick = onClick,
-        colors = androidx.compose.material3.TextButtonDefaults.textButtonColors(
+        colors = androidx.compose.material3.ButtonDefaults.textButtonColors(
             containerColor = if (selected) MaterialTheme.colorScheme.primaryContainer
             else MaterialTheme.colorScheme.surface,
             contentColor = if (selected) MaterialTheme.colorScheme.onPrimaryContainer
@@ -276,10 +276,10 @@ private fun SectionText(label: String, body: String) {
 
 private fun categoryLabel(category: FormulaCategory, isBn: Boolean): String = if (isBn) {
     when (category) {
-        FormulaCategory.GEOMETRY → "জ্যামিতি"
-        FormulaCategory.ALGEBRA → "বীজগণিত"
-        FormulaCategory.FINANCE → "অর্থায়ন"
-        FormulaCategory.PHYSICS → "পদার্থবিজ্ঞান"
+        FormulaCategory.GEOMETRY -> "জ্যামিতি"
+        FormulaCategory.ALGEBRA -> "বীজগণিত"
+        FormulaCategory.FINANCE -> "অর্থায়ন"
+        FormulaCategory.PHYSICS -> "পদার্থবিজ্ঞান"
     }
 } else {
     when (category) {
