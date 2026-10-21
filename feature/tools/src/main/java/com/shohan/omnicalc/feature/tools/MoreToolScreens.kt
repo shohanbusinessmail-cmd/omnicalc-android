@@ -55,6 +55,7 @@ import kotlin.math.min
 
 @Composable
 fun LandTool(
+    onBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: LandViewModel = viewModel(factory = LandViewModel.factory()),
 ) {
@@ -68,7 +69,7 @@ fun LandTool(
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 16.dp),
     ) {
-        ToolBackButton(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) })
+        ToolBackButton(onBack = onBack)
         OmniSectionHeader(stringResource(LocR.string.tool_land))
 
         Text(
@@ -220,6 +221,7 @@ private fun UnitPickRow(label: String, units: List<String>, selected: String, on
 
 @Composable
 fun VatTool(
+    onBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: VatViewModel = viewModel(factory = VatViewModel.factory()),
 ) {
@@ -231,7 +233,7 @@ fun VatTool(
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 16.dp),
     ) {
-        ToolBackButton(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) })
+        ToolBackButton(onBack = onBack)
         OmniSectionHeader(stringResource(LocR.string.tool_vat))
 
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -313,6 +315,7 @@ private fun KeyValueSimple(label: String, value: String) {
 
 @Composable
 fun SalaryTool(
+    onBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SalaryViewModel = viewModel(factory = SalaryViewModel.factory()),
 ) {
@@ -324,7 +327,7 @@ fun SalaryTool(
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 16.dp),
     ) {
-        ToolBackButton(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) })
+        ToolBackButton(onBack = onBack)
         OmniSectionHeader(stringResource(LocR.string.tool_salary))
 
         OmniSectionHeader(stringResource(LocR.string.salary_earning))
@@ -420,6 +423,7 @@ fun SalaryTool(
 
 @Composable
 fun CurrencyTool(
+    onBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: CurrencyViewModel = viewModel(factory = CurrencyViewModel.factory()),
 ) {
@@ -432,7 +436,7 @@ fun CurrencyTool(
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 16.dp),
     ) {
-        ToolBackButton(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) })
+        ToolBackButton(onBack = onBack)
         OmniSectionHeader(stringResource(LocR.string.tool_currency))
         Text(
             text = stringResource(LocR.string.land_verify_note),
@@ -548,6 +552,7 @@ fun CurrencyTool(
 
 @Composable
 fun GraphTool(
+    onBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: GraphViewModel = viewModel(factory = GraphViewModel.factory()),
 ) {
@@ -559,7 +564,7 @@ fun GraphTool(
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 16.dp),
     ) {
-        ToolBackButton(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) })
+        ToolBackButton(onBack = onBack)
         OmniSectionHeader(stringResource(LocR.string.tool_graph))
 
         OutlinedTextField(

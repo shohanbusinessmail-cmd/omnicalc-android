@@ -43,11 +43,11 @@ fun ToolsScreen(
         ToolsViewModel.Tool.CONVERTER -> ConverterTool(ui = ui, viewModel = viewModel, modifier = modifier)
         ToolsViewModel.Tool.PROGRAMMER -> ProgrammerTool(ui = ui, viewModel = viewModel, modifier = modifier)
         ToolsViewModel.Tool.DATE -> DateTool(ui = ui, viewModel = viewModel, modifier = modifier)
-        ToolsViewModel.Tool.LAND -> LandTool(modifier = modifier)
-        ToolsViewModel.Tool.VAT -> VatTool(modifier = modifier)
-        ToolsViewModel.Tool.SALARY -> SalaryTool(modifier = modifier)
-        ToolsViewModel.Tool.CURRENCY -> CurrencyTool(modifier = modifier)
-        ToolsViewModel.Tool.GRAPH -> GraphTool(modifier = modifier)
+        ToolsViewModel.Tool.LAND -> LandTool(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) }, modifier = modifier)
+        ToolsViewModel.Tool.VAT -> VatTool(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) }, modifier = modifier)
+        ToolsViewModel.Tool.SALARY -> SalaryTool(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) }, modifier = modifier)
+        ToolsViewModel.Tool.CURRENCY -> CurrencyTool(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) }, modifier = modifier)
+        ToolsViewModel.Tool.GRAPH -> GraphTool(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) }, modifier = modifier)
     }
 }
 
