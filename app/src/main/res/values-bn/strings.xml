@@ -31,7 +31,4 @@
     <string name="search_no_results">কিছু পাওয়া যায়নি। “বিজ্ঞান”, “ইতিহাস” বা “ভাষা” লিখুন।</string>
 
     <!-- Interim destination notes -->
-    <string name="interim_formulas">সূত্রগুলোর ক্যাটালগ পরবর্তী ধাপে তৈরি হচ্ছে — এখানে কোনো ভুয়া এন্ট্রি নেই।</string>
-    <string name="interim_tools">একক, মুদ্রা, জমি, বেতন ও প্রোগ্রামার টুল পরবর্তী ধাপে তৈরি হচ্ছে।</string>
-    <string name="interim_note">এই সৎ প্লেসহোল্ডার বদলে আসবে পূর্ণাঙ্গ, কার্যকর স্ক্রিন।</string>
 </resources>

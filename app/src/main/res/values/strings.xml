@@ -31,7 +31,4 @@
     <string name="search_no_results">No matches. Try “science”, “history” or “language”.</string>
 
     <!-- Interim destination notes (removed as each feature lands) -->
-    <string name="interim_formulas">Formula catalog is being built in the next increment — no fake entries here yet.</string>
-    <string name="interim_tools">Unit, currency, land, salary and programmer tools are being built in the next increment.</string>
-    <string name="interim_note">This honest placeholder will be replaced by the real, fully working screen.</string>
 </resources>
