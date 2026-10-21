@@ -45,7 +45,7 @@ private data class Tab(val route: String, val labelRes: Int, val icon: @Composab
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OmniCalcRoot(settings: AppSettings) {
+fun OmniCalcRoot(settings: AppSettings, modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     val backStack by navController.currentBackStackEntryAsState()
     val currentRoute = backStack?.destination?.route
@@ -71,7 +71,7 @@ fun OmniCalcRoot(settings: AppSettings) {
     }
 
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         topBar = {
             val title = when (currentRoute) {
                 "calculate" -> stringResource(R.string.nav_calculate)

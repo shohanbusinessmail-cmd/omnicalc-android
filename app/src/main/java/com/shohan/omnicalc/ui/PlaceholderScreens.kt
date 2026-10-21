@@ -25,8 +25,8 @@ import com.shohan.omnicalc.core.designsystem.ErrorBanner
  * docs/FEATURE_MATRIX.md track the schedule).
  */
 @Composable
-private fun InterimNote(message: String) {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+private fun InterimNote(message: String, modifier: Modifier = Modifier) {
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(
             modifier = Modifier.padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -44,11 +44,11 @@ private fun InterimNote(message: String) {
 }
 
 @Composable
-fun PlaceholderFormulas() {
-    InterimNote(stringResource(R.string.interim_formulas))
+fun PlaceholderFormulas(modifier: Modifier = Modifier) {
+    InterimNote(stringResource(R.string.interim_formulas), modifier)
 }
 
 @Composable
-fun PlaceholderTools() {
-    InterimNote(stringResource(R.string.interim_tools))
+fun PlaceholderTools(modifier: Modifier = Modifier) {
+    InterimNote(stringResource(R.string.interim_tools), modifier)
 }

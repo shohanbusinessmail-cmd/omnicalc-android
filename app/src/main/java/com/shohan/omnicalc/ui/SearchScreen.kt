@@ -66,6 +66,7 @@ private val INDEX = listOf(
 fun SearchScreen(
     onNavigate: (route: String) -> Unit,
     onBack: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     var query by remember { mutableStateOf("") }
     val trimmed = query.trim()
@@ -80,6 +81,7 @@ fun SearchScreen(
     }
 
     Scaffold(
+        modifier = modifier,
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.search_title)) },

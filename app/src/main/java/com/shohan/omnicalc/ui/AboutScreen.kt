@@ -46,11 +46,12 @@ import com.shohan.omnicalc.core.designsystem.OmniSectionHeader
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AboutScreen(onBack: () -> Unit) {
+fun AboutScreen(onBack: () -> Unit, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     var emailFailure by remember { mutableStateOf(false) }
 
     Scaffold(
+        modifier = modifier,
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.about_title)) },
