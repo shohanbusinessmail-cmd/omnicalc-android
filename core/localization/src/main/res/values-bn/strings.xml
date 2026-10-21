@@ -186,4 +186,5 @@
     <string name="date_age_result">বয়স</string>
     <string name="date_pick">তারিখ বাছুন</string>
     <string name="date_error_order">শেষ তারিখ শুরুর তারিখের আগে হতে পারে না।</string>
+    <string name="converter_save">ইতিহাসে সংরক্ষণ করুন</string>
 </resources>

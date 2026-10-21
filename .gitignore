@@ -25,5 +25,5 @@ Thumbs.db
 *.log
 reports/
 
-# Local toolchain notes
-tools/
+# Local toolchain notes (root-anchored so feature/tools/ still tracks)
+/tools/

@@ -186,4 +186,5 @@
     <string name="date_age_result">Age</string>
     <string name="date_pick">Pick date</string>
     <string name="date_error_order">End date must not be before the start date.</string>
+    <string name="converter_save">Save to history</string>
 </resources>

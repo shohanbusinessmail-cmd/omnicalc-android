@@ -52,7 +52,7 @@ private val INDEX = listOf(
     SearchEntry("formulas", "Formulas", "সূত্র", "Library", "লাইব্রেরি",
         "geometry area volume math formulas জ্যামিতি ক্ষেত্রফল আয়তন"),
     SearchEntry("tools", "Tools", "টুলস", "Convert", "রূপান্তর",
-        "converter units land currency date finance রূপান্তর একক জমি মুদ্রা"),
+        "converter units land currency date finance programmer hex oct bin bitwise age days রূপান্তর একক জমি মুদ্রা তারিখ বয়স"),
     SearchEntry("library", "Library", "লাইব্রেরি", "Library", "লাইব্রেরি",
         "history favorites settings ইতিহাস পছন্দ সেটিংস"),
     SearchEntry("library", "Settings", "সেটিংস", "Library", "লাইব্রেরি",

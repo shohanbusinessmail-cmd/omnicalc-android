@@ -36,6 +36,7 @@ import com.shohan.omnicalc.feature.calculator.CalculatorScreen
 import com.shohan.omnicalc.feature.formulas.FormulasScreen
 import com.shohan.omnicalc.feature.library.LibraryScreen
 import com.shohan.omnicalc.feature.scientific.ScientificScreen
+import com.shohan.omnicalc.feature.tools.ToolsScreen
 import com.shohan.omnicalc.R
 
 /**
@@ -154,7 +155,7 @@ fun OmniCalcRoot(settings: AppSettings, modifier: Modifier = Modifier) {
                     onPendingConsumed = { pendingFormulaId = null },
                 )
             }
-            composable("tools") { PlaceholderTools() }
+            composable("tools") { ToolsScreen() }
             composable("library") {
                 LibraryScreen(
                     onOpenAbout = { navController.navigate("about") },
