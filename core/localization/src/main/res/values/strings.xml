@@ -121,8 +121,8 @@
     <string name="option_grouping_south_asian">12,34,567 (South Asian)</string>
     <string name="option_precision_auto">Trim trailing zeros</string>
     <string name="option_precision_fixed">Fixed decimal places</string>
-    <string name="option_percent_standard">Everyday (200 + 10% = 220)</string>
-    <string name="option_percent_explicit">Exact (10% always = 0.1)</string>
+    <string name="option_percent_standard" formatted="false">Everyday (200 + 10% = 220)</string>
+    <string name="option_percent_explicit" formatted="false">Exact (10% always = 0.1)</string>
     <string name="settings_reset">Reset all preferences</string>
     <string name="settings_reset_confirm">Reset all preferences to defaults?</string>
     <string name="settings_about">About OmniCalc</string>

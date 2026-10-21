@@ -6,7 +6,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material.icons.filled.Construction
 import androidx.compose.material.icons.filled.Functions
-import androidx.compose.material.icons.filled.MenuBook
+import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Science
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -55,7 +55,7 @@ fun OmniCalcRoot(settings: AppSettings, modifier: Modifier = Modifier) {
         Tab("scientific", R.string.nav_scientific) { Icon(Icons.Filled.Science, contentDescription = null) },
         Tab("formulas", R.string.nav_formulas) { Icon(Icons.Filled.Functions, contentDescription = null) },
         Tab("tools", R.string.nav_tools) { Icon(Icons.Filled.Construction, contentDescription = null) },
-        Tab("library", R.string.nav_library) { Icon(Icons.Filled.MenuBook, contentDescription = null) },
+        Tab("library", R.string.nav_library) { Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = null) },
     )
 
     // Expression handed Library → Calculator (shared at shell level so tab

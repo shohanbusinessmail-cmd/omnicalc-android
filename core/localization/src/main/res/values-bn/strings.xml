@@ -121,8 +121,8 @@
     <string name="option_grouping_south_asian">12,34,567 (দক্ষিণ এশিয়া)</string>
     <string name="option_precision_auto">শেষ শূন্য বাদ দিন</string>
     <string name="option_precision_fixed">নির্দিষ্ট দশমিক স্থান</string>
-    <string name="option_percent_standard">প্রচলিত (200 + 10% = 220)</string>
-    <string name="option_percent_explicit">সুনির্দিষ্ট (10% সর্বদা = 0.1)</string>
+    <string name="option_percent_standard" formatted="false">প্রচলিত (200 + 10% = 220)</string>
+    <string name="option_percent_explicit" formatted="false">সুনির্দিষ্ট (10% সর্বদা = 0.1)</string>
     <string name="settings_reset">সব পছন্দনির্ধারণ রিসেট করুন</string>
     <string name="settings_reset_confirm">সব পছন্দনির্ধারণ ডিফল্টে ফেরাবেন?</string>
     <string name="settings_about">OmniCalc সম্পর্কে</string>
