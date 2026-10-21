@@ -32,32 +32,6 @@ class FinanceToolsTest {
         assertNull(FinanceTools.vat(BigDecimal.ONE, BigDecimal("-1"), FinanceTools.VatMode.EXCLUSIVE))
     }
 
-    @Test fun currencyRequiresEnteredRate() {
-        val row = FinanceTools.defaultCurrencyRows().first { it.code == "USD" }
-        assertNull(row.rate)
-        assertNull(FinanceTools.toBdt(BigDecimal.ONE, row))
-    }
-
-    @Test fun currencyRoundTrip() {
-        val row = FinanceTools.CurrencyRow("USD", "US Dollar", "মার্কিন ডলার", BigDecimal("122.5"), "user input", "2026-10-01")
-        assertEquals("122.5", FinanceTools.toBdt(BigDecimal("1"), row)!!.toPlainString())
-        assertEquals("1", FinanceTools.fromBdt(BigDecimal("122.5"), row)!!.stripTrailingZeros().toPlainString())
-    }
-
-    @Test fun currencySerializationPreservesUserEdits() {
-        val rows = FinanceTools.defaultCurrencyRows().map {
-            if (it.code == "BDT") it else it
-        }.map {
-            if (it.code == "USD") it.copy(rate = BigDecimal("122.4"), source = "central bank", effectiveDate = "2026-10-01") else it
-        }
-        val back = FinanceTools.deserializeCurrency(FinanceTools.serializeCurrency(rows))
-        val usd = back.first { it.code == "USD" }
-        assertEquals(BigDecimal("122.4"), usd.rate)
-        assertEquals("central bank", usd.source)
-        assertEquals("2026-10-01", usd.effectiveDate)
-        assertEquals(rows.size, back.size)
-    }
-
     @Test fun salaryTotalsAndPercent() {
         val e = listOf(
             FinanceTools.SalaryRow(1, "Basic", BigDecimal("50000")),

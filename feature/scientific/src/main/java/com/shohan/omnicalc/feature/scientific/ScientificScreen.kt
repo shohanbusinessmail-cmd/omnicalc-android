@@ -100,7 +100,7 @@ private fun SciRow(content: @Composable androidx.compose.foundation.layout.RowSc
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 3.dp),
+            .padding(vertical = 2.dp),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
         content = content,
     )

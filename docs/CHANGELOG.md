@@ -6,6 +6,32 @@ honesty rules: nothing is listed as done unless implemented and verified.
 ## [Unreleased]
 
 ### Fixed
+- **Scientific tab correctness:** after-“=” key handling rebuilt — operators
+  continue from the RAW result (grouped display strings previously injected
+  commas → SYNTAX), function keys wrap the result (`sin(90)` instead of
+  appending `90sin(`), memory math reads the raw value.
+- **Scientific display space:** keypad shrinks to 48dp only when scientific
+  rows are on screen (+ tighter rows/spacers); copy/share moved into the
+  status line — the result area gains ~80dp.
+- **About screen crash:** `painterResource(@mipmap/ic_launcher)` received an
+  adaptive-icon XML (unsupported → composition crash); now uses the plain
+  vector drawable.
+- **Overflow/overlapping:** converter categories, land profiles and date
+  modes chip rows now scroll horizontally; VAT/salary/quick-tool results go
+  through the shared formatter (grouping + numerals everywhere).
+
+### Removed
+- Currency converter (user request) — screens, ViewModel, FinanceTools
+  currency model/tests, settings field and strings all deleted.
+
+### Added
+- 13 more common formulas (31 total): parallelogram, cube volume/surface,
+  cone, sphere surface, sector, arc length, Pythagoras, 2D distance,
+  average-of-three, percentage decrease, combined work time, BMI.
+- Quick tools: **Percentage**, **Discount**, **Split bill** (BigDecimal,
+  live, formatter-consistent).
+
+### Fixed
 - **Startup crash ("app opens then closes"):** `Theme.OmniCalc` was based on
   the framework Material theme while `MainActivity` is `AppCompatActivity` —
   AppCompat throws *"You need to use a Theme.AppCompat theme (or descendant)"*

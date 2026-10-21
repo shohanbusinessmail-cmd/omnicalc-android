@@ -72,8 +72,12 @@ fun AboutScreen(onBack: () -> Unit, modifier: Modifier = Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(Modifier.height(8.dp))
+            // NOTE: never pass @mipmap/ic_launcher (adaptive-icon XML) to
+            // painterResource — it only supports vector/bitmap drawables and
+            // crashed the About screen at composition time. The legacy vector
+            // is the same artwork on the brand tile.
             Image(
-                painter = painterResource(R.mipmap.ic_launcher),
+                painter = painterResource(R.drawable.ic_launcher_legacy),
                 contentDescription = stringResource(R.string.app_name),
                 modifier = Modifier.size(88.dp),
             )

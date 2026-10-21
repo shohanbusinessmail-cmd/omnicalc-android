@@ -81,7 +81,9 @@ fun LandTool(
 
         // Profile selector + provenance card
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState()),
             horizontalArrangement = Arrangement.spacedBy(6.dp),
         ) {
             ui.profiles.forEach { p ->
@@ -264,9 +266,10 @@ fun VatTool(
         ui.error?.let { ErrorBanner(message = it, modifier = Modifier.fillMaxWidth()); Spacer(Modifier.height(6.dp)) }
         val r = ui.result
         if (r != null) {
-            KeyValueSimple(stringResource(LocR.string.vat_net), r.net.toPlainString())
-            KeyValueSimple(stringResource(LocR.string.vat_tax), r.tax.toPlainString())
-            KeyValueSimple(stringResource(LocR.string.vat_gross), r.gross.toPlainString())
+            val vf = { v: java.math.BigDecimal -> com.shohan.omnicalc.core.common.DisplayFormatter.format(v, ui.settings) }
+            KeyValueSimple(stringResource(LocR.string.vat_net), vf(r.net))
+            KeyValueSimple(stringResource(LocR.string.vat_tax), vf(r.tax))
+            KeyValueSimple(stringResource(LocR.string.vat_gross), vf(r.gross))
             Spacer(Modifier.height(6.dp))
             Button(onClick = viewModel::commitHistory, modifier = Modifier.fillMaxWidth()) {
                 Text(stringResource(LocR.string.converter_save))
@@ -400,12 +403,13 @@ fun SalaryTool(
 
         Spacer(Modifier.height(8.dp))
         ui.error?.let { ErrorBanner(message = it, modifier = Modifier.fillMaxWidth()) }
-        KeyValueSimple(stringResource(LocR.string.salary_earning), ui.totals.earnings.toPlainString())
-        KeyValueSimple(stringResource(LocR.string.salary_deduction), ui.totals.deductions.toPlainString())
+        val sf = { v: java.math.BigDecimal -> com.shohan.omnicalc.core.common.DisplayFormatter.format(v, ui.settings) }
+        KeyValueSimple(stringResource(LocR.string.salary_earning), sf(ui.totals.earnings))
+        KeyValueSimple(stringResource(LocR.string.salary_deduction), sf(ui.totals.deductions))
         ui.totals.deductionPercent?.let {
             KeyValueSimple(stringResource(LocR.string.salary_deduction_pct), "${it.stripTrailingZeros().toPlainString()}%")
         }
-        KeyValueSimple(stringResource(LocR.string.salary_net), ui.totals.net.toPlainString())
+        KeyValueSimple(stringResource(LocR.string.salary_net), sf(ui.totals.net))
         Spacer(Modifier.height(8.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Button(onClick = viewModel::commitHistory, enabled = ui.totals.earnings.signum() > 0) {
@@ -419,17 +423,15 @@ fun SalaryTool(
     }
 }
 
-// --------------------------------------------------------- currency ----
+// ------------------------------------------------ quick tools (§11) ----
 
 @Composable
-fun CurrencyTool(
+fun PercentTool(
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: CurrencyViewModel = viewModel(factory = CurrencyViewModel.factory()),
+    viewModel: QuickToolsViewModel = viewModel(factory = QuickToolsViewModel.factory()),
 ) {
     val ui by viewModel.ui.collectAsStateWithLifecycle()
-    val isBn = androidx.compose.ui.platform.LocalConfiguration.current.locales.get(0).language == "bn"
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -437,114 +439,151 @@ fun CurrencyTool(
             .padding(horizontal = 16.dp),
     ) {
         ToolBackButton(onBack = onBack)
-        OmniSectionHeader(stringResource(LocR.string.tool_currency))
-        Text(
-            text = stringResource(LocR.string.land_verify_note),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        Spacer(Modifier.height(6.dp))
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .horizontalScroll(rememberScrollState()),
-            horizontalArrangement = Arrangement.spacedBy(6.dp),
-        ) {
-            ui.rows.forEach { row ->
-                FilterChip(
-                    selected = row.code == ui.selectedCode,
-                    onClick = { viewModel.select(row.code) },
-                    label = { Text(row.code) },
-                )
-            }
-        }
-        Spacer(Modifier.height(6.dp))
-
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(stringResource(LocR.string.currency_to_bdt), style = MaterialTheme.typography.labelLarge)
-            Switch(checked = ui.toBdt, onCheckedChange = viewModel::setToBdt)
-            Text(stringResource(LocR.string.currency_from_bdt), style = MaterialTheme.typography.labelLarge)
-        }
-
-        val selected = ui.rows.firstOrNull { it.code == ui.selectedCode }
+        OmniSectionHeader(stringResource(LocR.string.tool_percent))
         OutlinedTextField(
-            value = ui.amountText,
-            onValueChange = viewModel::setAmount,
+            value = ui.pctPart,
+            onValueChange = viewModel::setPctPart,
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
-            label = { Text(if (ui.toBdt) selected?.code ?: "" else "BDT") },
+            label = { Text(stringResource(LocR.string.pct_part)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-            trailingIcon = {
-                TextButton(onClick = viewModel::commitHistory) {
-                    Text(stringResource(LocR.string.converter_save))
-                }
-            },
+        )
+        Spacer(Modifier.height(6.dp))
+        OutlinedTextField(
+            value = ui.pctWhole,
+            onValueChange = viewModel::setPctWhole,
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            label = { Text(stringResource(LocR.string.pct_whole)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
         )
         Spacer(Modifier.height(8.dp))
-
-        if (ui.missingRate) {
-            ErrorBanner(
-                message = stringResource(LocR.string.currency_missing_rate),
-                modifier = Modifier.fillMaxWidth(),
+        ui.pctError?.let { ErrorBanner(message = it, modifier = Modifier.fillMaxWidth()) }
+        val pctResult = ui.pctResult
+        if (pctResult != null) {
+            ResultText(
+                text = "$pctResult%",
+                style = MaterialTheme.typography.headlineSmall,
+                contentDescription = stringResource(LocR.string.pct_result_label) + ": $pctResult%",
             )
         }
-        ui.error?.let { ErrorBanner(message = it, modifier = Modifier.fillMaxWidth()) }
-        val result = ui.resultDisplay
-        if (result != null && selected != null) {
-            val suffix = if (ui.toBdt) "BDT" else selected.code
+        Spacer(Modifier.height(16.dp))
+    }
+}
+
+@Composable
+fun DiscountTool(
+    onBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: QuickToolsViewModel = viewModel(factory = QuickToolsViewModel.factory()),
+) {
+    val ui by viewModel.ui.collectAsStateWithLifecycle()
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 16.dp),
+    ) {
+        ToolBackButton(onBack = onBack)
+        OmniSectionHeader(stringResource(LocR.string.tool_discount))
+        OutlinedTextField(
+            value = ui.discPrice,
+            onValueChange = viewModel::setDiscPrice,
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            label = { Text(stringResource(LocR.string.discount_price)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+        )
+        Spacer(Modifier.height(6.dp))
+        OutlinedTextField(
+            value = ui.discRate,
+            onValueChange = viewModel::setDiscRate,
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            label = { Text(stringResource(LocR.string.discount_rate)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+        )
+        Spacer(Modifier.height(8.dp))
+        ui.discError?.let { ErrorBanner(message = it, modifier = Modifier.fillMaxWidth()) }
+        val pay = ui.discPay
+        val save = ui.discSave
+        if (pay != null) {
             ResultText(
-                text = "$result $suffix",
+                text = pay,
                 style = MaterialTheme.typography.headlineSmall,
-                contentDescription = "$result $suffix",
+                contentDescription = stringResource(LocR.string.discount_pay) + ": $pay",
             )
             Text(
-                text = selected.source + (selected.effectiveDate.ifBlank { "" }).let { if (it.isEmpty()) "" else " · $it" },
-                style = MaterialTheme.typography.labelSmall,
+                text = stringResource(LocR.string.discount_saved) + ": " + (save ?: ""),
+                style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
+        Spacer(Modifier.height(16.dp))
+    }
+}
 
-        Spacer(Modifier.height(12.dp))
-        selected?.let { row ->
-            OmniSectionHeader(row.code + " — " + (if (isBn) row.nameBn else row.nameEn))
-            if (ui.editCode == row.code) {
-                OutlinedTextField(
-                    value = ui.editRate,
-                    onValueChange = viewModel::setEditRate,
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    label = { Text(stringResource(LocR.string.currency_rate_bdt)) },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+@Composable
+fun SplitTool(
+    onBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: QuickToolsViewModel = viewModel(factory = QuickToolsViewModel.factory()),
+) {
+    val ui by viewModel.ui.collectAsStateWithLifecycle()
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 16.dp),
+    ) {
+        ToolBackButton(onBack = onBack)
+        OmniSectionHeader(stringResource(LocR.string.tool_split))
+        OutlinedTextField(
+            value = ui.splitTotal,
+            onValueChange = viewModel::setSplitTotal,
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            label = { Text(stringResource(LocR.string.split_total)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+        )
+        Spacer(Modifier.height(6.dp))
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            OutlinedTextField(
+                value = ui.splitPeople,
+                onValueChange = viewModel::setSplitPeople,
+                modifier = Modifier.weight(1f),
+                singleLine = true,
+                label = { Text(stringResource(LocR.string.split_people)) },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            )
+            OutlinedTextField(
+                value = ui.splitTip,
+                onValueChange = viewModel::setSplitTip,
+                modifier = Modifier.weight(1f),
+                singleLine = true,
+                label = { Text(stringResource(LocR.string.split_tip)) },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+            )
+        }
+        Spacer(Modifier.height(8.dp))
+        ui.splitError?.let { ErrorBanner(message = it, modifier = Modifier.fillMaxWidth()) }
+        val per = ui.splitPer
+        val grand = ui.splitGrand
+        if (per != null) {
+            ResultText(
+                text = per,
+                style = MaterialTheme.typography.headlineSmall,
+                contentDescription = stringResource(LocR.string.split_per_person) + ": $per",
+            )
+            grand?.let {
+                Text(
+                    text = stringResource(LocR.string.split_grand) + ": $it",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
-                Spacer(Modifier.height(6.dp))
-                OutlinedTextField(
-                    value = ui.editSource,
-                    onValueChange = viewModel::setEditSource,
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    label = { Text(stringResource(LocR.string.currency_source)) },
-                )
-                Spacer(Modifier.height(6.dp))
-                OutlinedTextField(
-                    value = ui.editDate,
-                    onValueChange = viewModel::setEditDate,
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    label = { Text(stringResource(LocR.string.currency_effective)) },
-                )
-                Spacer(Modifier.height(6.dp))
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Button(onClick = viewModel::saveEdit) { Text(stringResource(LocR.string.action_ok)) }
-                    OutlinedButton(onClick = viewModel::endEdit) { Text(stringResource(LocR.string.action_cancel)) }
-                }
-            } else {
-                OutlinedButton(onClick = { viewModel.beginEdit(row.code) }) {
-                    Text(stringResource(LocR.string.currency_rate_bdt))
-                }
             }
         }
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(16.dp))
     }
 }
 

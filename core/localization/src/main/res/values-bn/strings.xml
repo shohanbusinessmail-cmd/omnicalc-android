@@ -154,8 +154,6 @@
     <string name="tool_salary_desc">কনফিগযোগ্য বেতন উপাদান ও হার</string>
     <string name="tool_vat">ভ্যাট ক্যালকুলেটর</string>
     <string name="tool_vat_desc">কনফিগযোগ্য ভ্যাট, সূত্র-তারিখসহ</string>
-    <string name="tool_currency">মুদ্রা</string>
-    <string name="tool_currency_desc">তারিখসহ অফলাইন রেফারেন্স টেবিল</string>
     <string name="tool_graph">গ্রাফ প্লটার</string>
     <string name="tool_graph_desc">শেয়ারড ইঞ্জিন দিয়ে y = f(x) প্লট</string>
     <string name="converter_from">থেকে</string>
@@ -202,12 +200,6 @@
     <string name="salary_net">নিট বেতন</string>
     <string name="salary_deduction_pct">কর্তনের শতকরা</string>
     <string name="salary_label_hint">উপাদানের নাম</string>
-    <string name="currency_missing_rate">এখনো রেট দেওয়া হয়নি — সম্পাদনায় আজকের যাচাইকৃত রেট ও সূত্র লিখুন।</string>
-    <string name="currency_rate_bdt">রেট (প্রতি এককে বিডিটি)</string>
-    <string name="currency_source">রেটের সূত্র</string>
-    <string name="currency_effective">রেটের কার্যকর তারিখ</string>
-    <string name="currency_to_bdt">→ বিডিটি</string>
-    <string name="currency_from_bdt">বিডিটি →</string>
     <string name="vat_mode_exclusive">দাম + ভ্যাট</string>
     <string name="vat_mode_inclusive">ভ্যাট অন্তর্ভুক্ত</string>
     <string name="vat_rate">ভ্যাটের হার %</string>
@@ -220,4 +212,22 @@
     <string name="graph_plot">প্লট</string>
     <string name="graph_points">পয়েন্ট প্লট হয়েছে</string>
     <string name="graph_skipped">পয়েন্ট বাদ পড়েছে (সেখানে অস্থিত)</string>
+    <string name="tool_percent">শতকরা হিসাব</string>
+    <string name="tool_percent_desc">X, Y এর কত শতকরা — সাথে সাথে</string>
+    <string name="tool_discount">ছাড়</string>
+    <string name="tool_discount_desc">আসল দাম, ছাড়ের %, যা দিতে হবে</string>
+    <string name="tool_split">বিল ভাগ</string>
+    <string name="tool_split_desc">মোট টাকা (চাইলে টিপসহ) মানুষের মধ্যে ভাগ</string>
+    <string name="pct_part">মান X</string>
+    <string name="pct_whole">Y এর মধ্যে</string>
+    <string name="pct_result_label">শতকরা</string>
+    <string name="discount_price">আসল দাম</string>
+    <string name="discount_rate">ছাড়ের %</string>
+    <string name="discount_pay">যা দিতে হবে</string>
+    <string name="discount_saved">যত বাঁচবে</string>
+    <string name="split_total">মোট</string>
+    <string name="split_people">মানুষ</string>
+    <string name="split_tip">টিপ % (ঐচ্ছিক)</string>
+    <string name="split_per_person">মাথাপিছু</string>
+    <string name="split_grand">সর্বমোট</string>
 </resources>

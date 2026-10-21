@@ -363,24 +363,38 @@ class SalaryViewModel(private val services: AppServices, private val numberMessa
     }
 }
 
-// ------------------------------------------------------- currency tool --
+// ---------------------------------------------------- quick tools (§11) --
 
-class CurrencyViewModel(private val services: AppServices, private val numberMessage: String) : ViewModel() {
+/**
+ * High-frequency everyday math: percentage, discount and bill split.
+ * Pure BigDecimal, live results, formatted through the shared pipeline.
+ */
+class QuickToolsViewModel(
+    private val services: AppServices,
+    private val numberMessage: String,
+    private val divisionMessage: String,
+) : ViewModel() {
 
     data class UiState(
         val settings: AppSettings = AppSettings(),
-        val rows: List<FinanceTools.CurrencyRow> = FinanceTools.defaultCurrencyRows(),
-        val selectedCode: String = "USD",
-        val amountText: String = "1",
-        /** true → foreign to BDT; false → BDT to foreign. */
-        val toBdt: Boolean = true,
-        val resultDisplay: String? = null,
-        val error: String? = null,
-        val missingRate: Boolean = false,
-        val editCode: String? = null,
-        val editRate: String = "",
-        val editSource: String = "",
-        val editDate: String = "",
+        // percentage: X is what % of Y
+        val pctPart: String = "",
+        val pctWhole: String = "",
+        val pctResult: String? = null,
+        val pctError: String? = null,
+        // discount
+        val discPrice: String = "",
+        val discRate: String = "",
+        val discPay: String? = null,
+        val discSave: String? = null,
+        val discError: String? = null,
+        // split bill
+        val splitTotal: String = "",
+        val splitPeople: String = "2",
+        val splitTip: String = "",
+        val splitPer: String? = null,
+        val splitGrand: String? = null,
+        val splitError: String? = null,
     )
 
     private val _ui = MutableStateFlow(UiState())
@@ -388,107 +402,99 @@ class CurrencyViewModel(private val services: AppServices, private val numberMes
 
     init {
         viewModelScope.launch {
-            services.settingsRepository.settings.collect { s ->
-                _ui.update { it.copy(settings = s, rows = FinanceTools.deserializeCurrency(s.currencyRatesRaw)) }
-                recompute()
-            }
+            services.settingsRepository.settings.collect { s -> _ui.update { it.copy(settings = s) } }
         }
     }
 
-    fun select(code: String) = _ui.update { it.copy(selectedCode = code) }.also { recompute() }
-    fun setAmount(t: String) = _ui.update { it.copy(amountText = t) }.also { recompute() }
-    fun setToBdt(v: Boolean) = _ui.update { it.copy(toBdt = v) }.also { recompute() }
+    // ---- percentage ----
+    fun setPctPart(v: String) = _ui.update { it.copy(pctPart = v) }.also { recomputePct() }
+    fun setPctWhole(v: String) = _ui.update { it.copy(pctWhole = v) }.also { recomputePct() }
 
-    fun beginEdit(code: String) {
-        _ui.update { st ->
-            val r = st.rows.firstOrNull { it.code == code } ?: return@update st
-            st.copy(editCode = code, editRate = r.rate?.toPlainString().orEmpty(), editSource = r.source, editDate = r.effectiveDate)
-        }
-    }
-
-    fun endEdit() = _ui.update { it.copy(editCode = null) }
-
-    fun setEditRate(v: String) = _ui.update { it.copy(editRate = v) }
-    fun setEditSource(v: String) = _ui.update { it.copy(editSource = v) }
-    fun setEditDate(v: String) = _ui.update { it.copy(editDate = v) }
-
-    fun saveEdit() {
+    private fun recomputePct() {
         val st = _ui.value
-        val code = st.editCode ?: return
-        val rate = st.editRate.trim().ifEmpty { null }?.let {
-            try {
-                BigDecimal(Numerals.normalizeToWesternDigits(it))
-            } catch (e: NumberFormatException) {
-                null
-            }
-        }
-        val rows = st.rows.map { r ->
-            if (r.code == code) r.copy(rate = rate, source = st.editSource, effectiveDate = st.editDate) else r
-        }
-        viewModelScope.launch {
-            services.settingsRepository.setCurrencyRates(FinanceTools.serializeCurrency(rows))
-            _ui.update { it.copy(editCode = null) }
-        }
-        recompute()
-    }
-
-    private fun recompute() {
-        val st = _ui.value
-        val row = st.rows.firstOrNull { it.code == st.selectedCode } ?: return
-        val raw = st.amountText.trim()
-        if (raw.isEmpty()) {
-            _ui.update { it.copy(resultDisplay = null, error = null, missingRate = row.rate == null) }
+        val part = parse(st.pctPart) ?: return clearPct()
+        val whole = parse(st.pctWhole) ?: return clearPct()
+        if (whole.signum() == 0) {
+            _ui.update { it.copy(pctResult = null, pctError = divisionMessage) }
             return
         }
-        val amount = try {
-            BigDecimal(Numerals.normalizeToWesternDigits(raw))
+        val pct = part.multiply(BigDecimal(100)).divide(whole, java.math.MathContext(15, java.math.RoundingMode.HALF_UP))
+        _ui.update { it.copy(pctResult = fmt(pct), pctError = null) }
+    }
+
+    private fun clearPct() = _ui.update { it.copy(pctResult = null, pctError = null) }
+
+    // ---- discount ----
+    fun setDiscPrice(v: String) = _ui.update { it.copy(discPrice = v) }.also { recomputeDisc() }
+    fun setDiscRate(v: String) = _ui.update { it.copy(discRate = v) }.also { recomputeDisc() }
+
+    private fun recomputeDisc() {
+        val st = _ui.value
+        val price = parse(st.discPrice) ?: return clearDisc()
+        val rate = parse(st.discRate) ?: return clearDisc()
+        if (rate.signum() < 0 || rate.compareTo(BigDecimal(100)) > 0) {
+            _ui.update { it.copy(discPay = null, discSave = null, discError = numberMessage) }
+            return
+        }
+        val pay = price.multiply(BigDecimal(100).subtract(rate)).divide(BigDecimal(100), java.math.MathContext(15, java.math.RoundingMode.HALF_UP))
+        val save = price.subtract(pay)
+        _ui.update { it.copy(discPay = fmt(pay), discSave = fmt(save), discError = null) }
+    }
+
+    private fun clearDisc() = _ui.update { it.copy(discPay = null, discSave = null, discError = null) }
+
+    // ---- split bill ----
+    fun setSplitTotal(v: String) = _ui.update { it.copy(splitTotal = v) }.also { recomputeSplit() }
+    fun setSplitPeople(v: String) = _ui.update { it.copy(splitPeople = v) }.also { recomputeSplit() }
+    fun setSplitTip(v: String) = _ui.update { it.copy(splitTip = v) }.also { recomputeSplit() }
+
+    private fun recomputeSplit() {
+        val st = _ui.value
+        val total = parse(st.splitTotal) ?: return clearSplit()
+        val people = try {
+            com.shohan.omnicalc.core.common.Numerals.normalizeToWesternDigits(st.splitPeople.trim()).toBigDecimalOrNull()
+        } catch (e: Exception) {
+            null
+        }
+        if (people == null || people.compareTo(BigDecimal.ONE) < 0 || people.stripTrailingZeros().scale() > 0) {
+            if (st.splitPeople.isBlank()) return clearSplit()
+            _ui.update { it.copy(splitPer = null, splitGrand = null, splitError = numberMessage) }
+            return
+        }
+        val tip = if (st.splitTip.isBlank()) BigDecimal.ZERO else (parse(st.splitTip) ?: return clearSplit())
+        if (tip.signum() < 0) {
+            _ui.update { it.copy(splitPer = null, splitGrand = null, splitError = numberMessage) }
+            return
+        }
+        val grand = total.multiply(BigDecimal(100).add(tip)).divide(BigDecimal(100), java.math.MathContext(15, java.math.RoundingMode.HALF_UP))
+        val per = grand.divide(people, java.math.MathContext(15, java.math.RoundingMode.HALF_UP))
+        _ui.update { it.copy(splitPer = fmt(per), splitGrand = fmt(grand), splitError = null) }
+    }
+
+    private fun clearSplit() = _ui.update { it.copy(splitPer = null, splitGrand = null, splitError = null) }
+
+    private fun parse(text: String): BigDecimal? {
+        val t = text.trim()
+        if (t.isEmpty()) return null
+        return try {
+            BigDecimal(com.shohan.omnicalc.core.common.Numerals.normalizeToWesternDigits(t))
         } catch (e: NumberFormatException) {
-            _ui.update { it.copy(resultDisplay = null, error = numberMessage, missingRate = false) }
-            return
-        }
-        if (row.rate == null) {
-            _ui.update { it.copy(resultDisplay = null, error = null, missingRate = true) }
-            return
-        }
-        val out = if (st.toBdt) FinanceTools.toBdt(amount, row) else FinanceTools.fromBdt(amount, row)
-        _ui.update {
-            it.copy(
-                resultDisplay = out?.let { v -> DisplayFormatter.format(v, it.settings) },
-                error = if (out == null) numberMessage else null,
-                missingRate = false,
-            )
+            null
         }
     }
 
-    fun commitHistory() {
-        val st = _ui.value
-        val display = st.resultDisplay ?: return
-        val row = st.rows.firstOrNull { it.code == st.selectedCode } ?: return
-        val amount = try {
-            BigDecimal(Numerals.normalizeToWesternDigits(st.amountText.trim()))
-        } catch (e: NumberFormatException) {
-            return
-        }
-        viewModelScope.launch {
-            services.historyRepository.record(
-                expression = "${amount.toPlainString()} ${if (st.toBdt) row.code else "BDT"} → ${if (st.toBdt) "BDT" else row.code} (offline ref ${row.effectiveDate.ifBlank { "undated" }})",
-                resultPlain = if (st.toBdt) FinanceTools.toBdt(amount, row)?.toPlainString() ?: return@launch
-                else FinanceTools.fromBdt(amount, row)?.toPlainString() ?: return@launch,
-                exact = false,
-                toolType = "currency",
-                category = row.code,
-                contextPairs = "rate=${row.rate?.toPlainString().orEmpty()}&source=${row.source.take(80)}&effective=${row.effectiveDate}",
-            )
-        }
-        @Suppress("UNUSED_EXPRESSION") display
-    }
+    private fun fmt(v: BigDecimal): String = DisplayFormatter.format(v, _ui.value.settings)
 
     companion object {
         fun factory(): ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val app = this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as AppServices
                 val ctx = (app as android.app.Application).applicationContext
-                CurrencyViewModel(app, ctx.getString(com.shohan.omnicalc.core.localization.R.string.formula_error_number))
+                QuickToolsViewModel(
+                    services = app,
+                    numberMessage = ctx.getString(com.shohan.omnicalc.core.localization.R.string.formula_error_number),
+                    divisionMessage = ctx.getString(com.shohan.omnicalc.core.localization.R.string.engine_error_division_by_zero),
+                )
             }
         }
     }

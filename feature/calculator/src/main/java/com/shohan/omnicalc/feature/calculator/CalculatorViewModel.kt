@@ -26,8 +26,14 @@ data class CalculatorUiState(
     val field: TextFieldValue = TextFieldValue(""),
     /** Live preview (only shown when evaluation currently succeeds). */
     val preview: String? = null,
-    /** Result of the last committed "=" (shown large). */
+    /** Result of the last committed "=" (shown large, formatted for display). */
     val committedResult: String? = null,
+    /**
+     * Same result as PLAIN Western digits (no grouping, no Bengali numerals).
+     * Continuation after "=" and memory math ALWAYS use this — inserting the
+     * formatted string back would inject commas and break the next parse.
+     */
+    val committedRaw: String? = null,
     val committedExact: Boolean = true,
     /** Set after "=" on a failed expression — cleared on edit (spec §4.4 UX). */
     val errorMessage: String? = null,
@@ -83,8 +89,19 @@ class CalculatorViewModel(
 
     // ---- input actions ----------------------------------------------------
 
-    /** Inserts text at the caret (replacing any selection). */
+    /**
+     * Inserts text at the caret (replacing any selection).
+     *
+     * Right after "=" (classic calculator semantics):
+     *  - a VALUE key (digit, `.`, `(`, `π`, `e`) starts a fresh expression;
+     *  - an OPERATOR/postfix key (`+ − × ÷ ^ ! ° mod …`) continues from the
+     *    RAW committed result;
+     *  - a FUNCTION key (`sin(`, `√(`, `ln(` …) wraps the RAW result:
+     *    `sin(` after `90=` becomes `sin(90)`.
+     * Mid-edit, everything inserts at the caret (expression semantics).
+     */
     fun insert(text: String) {
+        if (text.isEmpty()) return
         val field = _ui.value.field
         val start = field.selection.min
         val end = field.selection.max
@@ -92,20 +109,33 @@ class CalculatorViewModel(
         val newCursor = start + text.length
 
         val afterEquals = _ui.value.justEvaluated
-        val startsFresh = afterEquals && text.firstOrNull()?.let { it.isDigit() || it == '(' || it == '.' } == true
+        val raw = _ui.value.committedRaw
+
+        val isFunction = text.endsWith("(") && text.dropLast(1).let { prefix ->
+            prefix == "√" || (prefix.isNotEmpty() && prefix.all { it.isLetter() })
+        }
+        val isFirst = text.first()
+        val isValue = isFirst.isDigit() || isFirst == '.' || text == "(" || text == "π" || text == "e"
 
         val finalText: String
         val finalCursor: Int
-        if (startsFresh) {
-            finalText = text
-            finalCursor = text.length
-        } else if (afterEquals && _ui.value.committedResult != null && text.firstOrNull()?.let { !it.isLetter() && !it.isDigit() } == true) {
-            // Operator right after "=" continues from the result.
-            finalText = _ui.value.committedResult + text
-            finalCursor = finalText.length
-        } else {
-            finalText = newText
-            finalCursor = newCursor
+        when {
+            afterEquals && raw != null && isFunction -> {
+                finalText = text + raw + ")"
+                finalCursor = text.length + raw.length
+            }
+            afterEquals && raw != null && isValue -> {
+                finalText = text
+                finalCursor = text.length
+            }
+            afterEquals && raw != null -> {
+                finalText = raw + text
+                finalCursor = finalText.length
+            }
+            else -> {
+                finalText = newText
+                finalCursor = newCursor
+            }
         }
 
         setField(finalText, finalCursor)
@@ -144,7 +174,7 @@ class CalculatorViewModel(
 
     fun clearAll() {
         setField("", 0)
-        _ui.update { it.copy(committedResult = null, errorMessage = null, justEvaluated = false) }
+        _ui.update { it.copy(committedResult = null, committedRaw = null, errorMessage = null, justEvaluated = false) }
         persistState("", 0)
     }
 
@@ -185,6 +215,7 @@ class CalculatorViewModel(
                 _ui.update {
                     it.copy(
                         committedResult = formatted,
+                        committedRaw = result.value.toPlainString(),
                         committedExact = result.exact,
                         preview = formatted,
                         errorMessage = null,
@@ -254,7 +285,7 @@ class CalculatorViewModel(
 
     /** Numeric value of the current expression or committed result, if any. */
     private fun currentNumericValue(): java.math.BigDecimal? {
-        val source = _ui.value.committedResult?.takeIf { _ui.value.justEvaluated }
+        val source = _ui.value.committedRaw?.takeIf { _ui.value.justEvaluated }
             ?: _ui.value.field.text
         val text = com.shohan.omnicalc.core.common.Numerals.normalizeToWesternDigits(source)
         return text.toBigDecimalOrNull()
@@ -291,6 +322,7 @@ class CalculatorViewModel(
             it.copy(
                 field = TextFieldValue(expression, selection = TextRange(expression.length)),
                 committedResult = result,
+                committedRaw = result,
                 errorMessage = null,
                 justEvaluated = false,
                 loadedFromHistory = true,

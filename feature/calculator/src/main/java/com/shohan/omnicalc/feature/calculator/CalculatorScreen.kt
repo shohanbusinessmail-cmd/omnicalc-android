@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -18,6 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,6 +39,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -79,6 +83,8 @@ fun CalculatorScreen(
         if (ui.hapticsEnabled) haptics.performHapticFeedback(HapticFeedbackType.LongPress)
     }
 
+    val shown = ui.committedResult ?: ui.preview
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -114,6 +120,37 @@ fun CalculatorScreen(
                             )
                             .padding(horizontal = 8.dp, vertical = 2.dp),
                     )
+                } else {
+                    Spacer(Modifier.width(1.dp))
+                }
+                if (shown != null) {
+                    // Compact copy/share affordances live in the status line so
+                    // the result itself keeps every vertical pixel.
+                    androidx.compose.material3.IconButton(
+                        onClick = { maybeHaptic(); clipboard.setText(AnnotatedString(shown)) },
+                        modifier = Modifier.size(32.dp),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.ContentCopy,
+                            contentDescription = stringResource(LocR.string.action_copy),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.size(18.dp),
+                        )
+                    }
+                    androidx.compose.material3.IconButton(
+                        onClick = {
+                            maybeHaptic()
+                            shareCalculation(context, ui.field.text, shown)
+                        },
+                        modifier = Modifier.size(32.dp),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Share,
+                            contentDescription = stringResource(LocR.string.action_share),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.size(18.dp),
+                        )
+                    }
                 }
             }
 
@@ -139,7 +176,6 @@ fun CalculatorScreen(
                 maxLines = 3,
             )
 
-            val shown = ui.committedResult ?: ui.preview
             if (shown != null) {
                 Spacer(Modifier.height(4.dp))
                 ResultText(
@@ -147,38 +183,8 @@ fun CalculatorScreen(
                     style = MaterialTheme.typography.displaySmall,
                     contentDescription = stringResource(LocR.string.label_result) + ": " + shown,
                 )
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.End),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    androidx.compose.material3.IconButton(onClick = {
-                        maybeHaptic()
-                        clipboard.setText(AnnotatedString(shown))
-                    }) {
-                        androidx.compose.material3.Icon(
-                            imageVector = Icons.Outlined.ContentCopy,
-                            contentDescription = stringResource(LocR.string.action_copy),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                    androidx.compose.material3.IconButton(onClick = {
-                        maybeHaptic()
-                        shareCalculation(
-                            context = context,
-                            expression = ui.field.text,
-                            result = shown,
-                        )
-                    }) {
-                        androidx.compose.material3.Icon(
-                            imageVector = Icons.Outlined.Share,
-                            contentDescription = stringResource(LocR.string.action_share),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                }
             } else {
-                Spacer(Modifier.height(4.dp))
+                Spacer(Modifier.height(2.dp))
             }
         }
 
@@ -186,7 +192,7 @@ fun CalculatorScreen(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 8.dp),
+                .padding(top = 6.dp),
             horizontalArrangement = Arrangement.spacedBy(6.dp),
         ) {
             CalcKeyOutlined("MC", stringResource(LocR.string.key_desc_memory_clear), { maybeHaptic(); vm.memoryClear() }, Modifier.weight(1f), enabled = ui.memory != null)
@@ -198,51 +204,54 @@ fun CalculatorScreen(
 
         // ---- Scientific rows (hosted above standard pad when present) ----
         if (scientificContent != null) {
-            Spacer(Modifier.height(6.dp))
+            Spacer(Modifier.height(4.dp))
             scientificContent()
         }
 
         // ---- Standard keypad ----
-        Spacer(Modifier.height(6.dp))
+        // With the scientific rows on screen, keys shrink to the a11y-legal
+        // 48dp so the display/result area keeps real estate (spec §6.3 UX).
+        val padHeight: Dp = if (scientificContent != null) 48.dp else 56.dp
+        Spacer(Modifier.height(4.dp))
         KeypadRow {
-            CalcKey("AC", stringResource(LocR.string.key_desc_clear), { maybeHaptic(); vm.clearAll() }, Modifier.weight(1f), variant = CalcKeyVariant.DESTRUCTIVE, fontSize = MaterialTheme.typography.titleLarge.fontSize)
-            CalcKey("⌫", stringResource(LocR.string.key_desc_backspace), { maybeHaptic(); vm.backspace() }, Modifier.weight(1f), variant = CalcKeyVariant.FUNCTION)
-            CalcKey("(", stringResource(LocR.string.key_desc_open_paren), { maybeHaptic(); vm.insert("(") }, Modifier.weight(1f), variant = CalcKeyVariant.FUNCTION)
-            CalcKey(")", stringResource(LocR.string.key_desc_close_paren), { maybeHaptic(); vm.insert(")") }, Modifier.weight(1f), variant = CalcKeyVariant.FUNCTION)
-            CalcKey("÷", stringResource(LocR.string.key_desc_divide), { maybeHaptic(); vm.insert("÷") }, Modifier.weight(1f), variant = CalcKeyVariant.OPERATOR)
+            CalcKey("AC", stringResource(LocR.string.key_desc_clear), { maybeHaptic(); vm.clearAll() }, Modifier.weight(1f).height(padHeight), variant = CalcKeyVariant.DESTRUCTIVE, fontSize = MaterialTheme.typography.titleLarge.fontSize)
+            CalcKey("⌫", stringResource(LocR.string.key_desc_backspace), { maybeHaptic(); vm.backspace() }, Modifier.weight(1f).height(padHeight), variant = CalcKeyVariant.FUNCTION)
+            CalcKey("(", stringResource(LocR.string.key_desc_open_paren), { maybeHaptic(); vm.insert("(") }, Modifier.weight(1f).height(padHeight), variant = CalcKeyVariant.FUNCTION)
+            CalcKey(")", stringResource(LocR.string.key_desc_close_paren), { maybeHaptic(); vm.insert(")") }, Modifier.weight(1f).height(padHeight), variant = CalcKeyVariant.FUNCTION)
+            CalcKey("÷", stringResource(LocR.string.key_desc_divide), { maybeHaptic(); vm.insert("÷") }, Modifier.weight(1f).height(padHeight), variant = CalcKeyVariant.OPERATOR)
         }
         KeypadRow {
-            CalcKey("7", "7", { maybeHaptic(); vm.insert("7") }, Modifier.weight(1f))
-            CalcKey("8", "8", { maybeHaptic(); vm.insert("8") }, Modifier.weight(1f))
-            CalcKey("9", "9", { maybeHaptic(); vm.insert("9") }, Modifier.weight(1f))
-            CalcKey("×", stringResource(LocR.string.key_desc_multiply), { maybeHaptic(); vm.insert("×") }, Modifier.weight(1f), variant = CalcKeyVariant.OPERATOR)
-            CalcKey("−", stringResource(LocR.string.key_desc_subtract), { maybeHaptic(); vm.insert("−") }, Modifier.weight(1f), variant = CalcKeyVariant.OPERATOR)
+            CalcKey("7", "7", { maybeHaptic(); vm.insert("7") }, Modifier.weight(1f).height(padHeight))
+            CalcKey("8", "8", { maybeHaptic(); vm.insert("8") }, Modifier.weight(1f).height(padHeight))
+            CalcKey("9", "9", { maybeHaptic(); vm.insert("9") }, Modifier.weight(1f).height(padHeight))
+            CalcKey("×", stringResource(LocR.string.key_desc_multiply), { maybeHaptic(); vm.insert("×") }, Modifier.weight(1f).height(padHeight), variant = CalcKeyVariant.OPERATOR)
+            CalcKey("−", stringResource(LocR.string.key_desc_subtract), { maybeHaptic(); vm.insert("−") }, Modifier.weight(1f).height(padHeight), variant = CalcKeyVariant.OPERATOR)
         }
         KeypadRow {
-            CalcKey("4", "4", { maybeHaptic(); vm.insert("4") }, Modifier.weight(1f))
-            CalcKey("5", "5", { maybeHaptic(); vm.insert("5") }, Modifier.weight(1f))
-            CalcKey("6", "6", { maybeHaptic(); vm.insert("6") }, Modifier.weight(1f))
-            CalcKey("+", stringResource(LocR.string.key_desc_add), { maybeHaptic(); vm.insert("+") }, Modifier.weight(1f), variant = CalcKeyVariant.OPERATOR)
-            CalcKey("±", stringResource(LocR.string.key_desc_toggle_sign), { maybeHaptic(); vm.toggleSign() }, Modifier.weight(1f), variant = CalcKeyVariant.FUNCTION)
+            CalcKey("4", "4", { maybeHaptic(); vm.insert("4") }, Modifier.weight(1f).height(padHeight))
+            CalcKey("5", "5", { maybeHaptic(); vm.insert("5") }, Modifier.weight(1f).height(padHeight))
+            CalcKey("6", "6", { maybeHaptic(); vm.insert("6") }, Modifier.weight(1f).height(padHeight))
+            CalcKey("+", stringResource(LocR.string.key_desc_add), { maybeHaptic(); vm.insert("+") }, Modifier.weight(1f).height(padHeight), variant = CalcKeyVariant.OPERATOR)
+            CalcKey("±", stringResource(LocR.string.key_desc_toggle_sign), { maybeHaptic(); vm.toggleSign() }, Modifier.weight(1f).height(padHeight), variant = CalcKeyVariant.FUNCTION)
         }
         KeypadRow {
-            CalcKey("1", "1", { maybeHaptic(); vm.insert("1") }, Modifier.weight(1f))
-            CalcKey("2", "2", { maybeHaptic(); vm.insert("2") }, Modifier.weight(1f))
-            CalcKey("3", "3", { maybeHaptic(); vm.insert("3") }, Modifier.weight(1f))
-            CalcKey(".", stringResource(LocR.string.key_desc_decimal), { maybeHaptic(); vm.insert(".") }, Modifier.weight(1f))
-            CalcKey("%", stringResource(LocR.string.key_desc_percent), { maybeHaptic(); vm.insert("%") }, Modifier.weight(1f), variant = CalcKeyVariant.OPERATOR)
+            CalcKey("1", "1", { maybeHaptic(); vm.insert("1") }, Modifier.weight(1f).height(padHeight))
+            CalcKey("2", "2", { maybeHaptic(); vm.insert("2") }, Modifier.weight(1f).height(padHeight))
+            CalcKey("3", "3", { maybeHaptic(); vm.insert("3") }, Modifier.weight(1f).height(padHeight))
+            CalcKey(".", stringResource(LocR.string.key_desc_decimal), { maybeHaptic(); vm.insert(".") }, Modifier.weight(1f).height(padHeight))
+            CalcKey("%", stringResource(LocR.string.key_desc_percent), { maybeHaptic(); vm.insert("%") }, Modifier.weight(1f).height(padHeight), variant = CalcKeyVariant.OPERATOR)
         }
         KeypadRow {
             CalcKey(
                 "0", "0",
                 { maybeHaptic(); vm.insert("0") },
-                Modifier.weight(2f),
+                Modifier.weight(2f).height(padHeight),
             )
             CalcKey(
                 "=",
                 stringResource(LocR.string.key_desc_equals),
                 { maybeHaptic(); vm.evaluate() },
-                Modifier.weight(2f),
+                Modifier.weight(2f).height(padHeight),
                 variant = CalcKeyVariant.EQUALS,
             )
         }
@@ -255,7 +264,7 @@ private fun KeypadRow(content: @Composable RowScope.() -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp),
+            .padding(vertical = 3.dp),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
         content = content,
     )

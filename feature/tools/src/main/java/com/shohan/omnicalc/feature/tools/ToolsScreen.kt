@@ -46,7 +46,9 @@ fun ToolsScreen(
         ToolsViewModel.Tool.LAND -> LandTool(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) }, modifier = modifier)
         ToolsViewModel.Tool.VAT -> VatTool(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) }, modifier = modifier)
         ToolsViewModel.Tool.SALARY -> SalaryTool(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) }, modifier = modifier)
-        ToolsViewModel.Tool.CURRENCY -> CurrencyTool(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) }, modifier = modifier)
+        ToolsViewModel.Tool.PERCENT -> PercentTool(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) }, modifier = modifier)
+        ToolsViewModel.Tool.DISCOUNT -> DiscountTool(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) }, modifier = modifier)
+        ToolsViewModel.Tool.SPLIT -> SplitTool(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) }, modifier = modifier)
         ToolsViewModel.Tool.GRAPH -> GraphTool(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) }, modifier = modifier)
     }
 }
@@ -96,9 +98,19 @@ private fun ToolsHome(
             onClick = { onOpen(ToolsViewModel.Tool.VAT) },
         )
         ToolCard(
-            title = stringResource(LocR.string.tool_currency),
-            subtitle = stringResource(LocR.string.tool_currency_desc),
-            onClick = { onOpen(ToolsViewModel.Tool.CURRENCY) },
+            title = stringResource(LocR.string.tool_percent),
+            subtitle = stringResource(LocR.string.tool_percent_desc),
+            onClick = { onOpen(ToolsViewModel.Tool.PERCENT) },
+        )
+        ToolCard(
+            title = stringResource(LocR.string.tool_discount),
+            subtitle = stringResource(LocR.string.tool_discount_desc),
+            onClick = { onOpen(ToolsViewModel.Tool.DISCOUNT) },
+        )
+        ToolCard(
+            title = stringResource(LocR.string.tool_split),
+            subtitle = stringResource(LocR.string.tool_split_desc),
+            onClick = { onOpen(ToolsViewModel.Tool.SPLIT) },
         )
         ToolCard(
             title = stringResource(LocR.string.tool_graph),

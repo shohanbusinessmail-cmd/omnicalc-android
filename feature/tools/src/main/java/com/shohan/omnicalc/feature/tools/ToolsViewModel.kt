@@ -35,7 +35,7 @@ class ToolsViewModel(
     private val divisionMessage: String,
 ) : ViewModel() {
 
-    enum class Tool { HOME, CONVERTER, PROGRAMMER, DATE, LAND, VAT, SALARY, CURRENCY, GRAPH }
+    enum class Tool { HOME, CONVERTER, PROGRAMMER, DATE, LAND, VAT, SALARY, PERCENT, DISCOUNT, SPLIT, GRAPH }
     enum class DateMode { DIFF, SHIFT, AGE }
     enum class Base(val radix: Int, val filter: Regex, val label: String) {
         BIN(2, Regex("[01]+"), "BIN"),

@@ -21,8 +21,6 @@ data class AppSettings(
     val memoryValue: String? = null,
     /** Serialized editable land profiles (see LandProfiles.serialize). */
     val landProfilesRaw: String? = null,
-    /** Serialized offline currency table (rate|source|effective per line). */
-    val currencyRatesRaw: String? = null,
     /** Provenance metadata the user entered for the VAT tool (spec §11.5). */
     val vatSource: String? = null,
     val vatEffectiveDate: String? = null,

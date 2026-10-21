@@ -64,6 +64,7 @@ fun ConverterTool(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
                 .padding(bottom = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(6.dp),
         ) {
@@ -335,7 +336,10 @@ fun DateTool(
         ToolBackButton(onBack = { viewModel.open(ToolsViewModel.Tool.HOME) })
         OmniSectionHeader(stringResource(LocR.string.tool_datetime))
 
-        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        Row(
+            modifier = Modifier.horizontalScroll(rememberScrollState()),
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+        ) {
             FilterChip(
                 selected = ui.dateMode == ToolsViewModel.DateMode.DIFF,
                 onClick = { viewModel.setDateMode(ToolsViewModel.DateMode.DIFF) },

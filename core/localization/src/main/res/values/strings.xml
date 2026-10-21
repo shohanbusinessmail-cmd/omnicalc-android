@@ -154,8 +154,6 @@
     <string name="tool_salary_desc">Configurable salary components and rates</string>
     <string name="tool_vat">VAT calculator</string>
     <string name="tool_vat_desc">Configurable VAT/inclusive-exclusive, with source metadata</string>
-    <string name="tool_currency">Currency</string>
-    <string name="tool_currency_desc">Offline reference table with effective dates</string>
     <string name="tool_graph">Graph plotter</string>
     <string name="tool_graph_desc">Plot y = f(x) from the shared engine</string>
     <string name="converter_from">From</string>
@@ -202,12 +200,6 @@
     <string name="salary_net">Net pay</string>
     <string name="salary_deduction_pct">Deduction %</string>
     <string name="salary_label_hint">Component name</string>
-    <string name="currency_missing_rate">No rate entered yet — tap edit to record today’s verified rate with its source.</string>
-    <string name="currency_rate_bdt">Rate (BDT per unit)</string>
-    <string name="currency_source">Rate source</string>
-    <string name="currency_effective">Rate effective date</string>
-    <string name="currency_to_bdt">→ BDT</string>
-    <string name="currency_from_bdt">BDT →</string>
     <string name="vat_mode_exclusive">Price + VAT</string>
     <string name="vat_mode_inclusive">VAT included</string>
     <string name="vat_rate">VAT rate %</string>
@@ -220,4 +212,22 @@
     <string name="graph_plot">Plot</string>
     <string name="graph_points">points plotted</string>
     <string name="graph_skipped">points skipped (undefined there)</string>
+    <string name="tool_percent">Percentage</string>
+    <string name="tool_percent_desc">X is what % of Y, instantly</string>
+    <string name="tool_discount">Discount</string>
+    <string name="tool_discount_desc">Original price, discount %, what you pay</string>
+    <string name="tool_split">Split bill</string>
+    <string name="tool_split_desc">Divide a total (with optional tip) between people</string>
+    <string name="pct_part">Value X</string>
+    <string name="pct_whole">Of value Y</string>
+    <string name="pct_result_label">Percentage</string>
+    <string name="discount_price">Original price</string>
+    <string name="discount_rate">Discount %</string>
+    <string name="discount_pay">You pay</string>
+    <string name="discount_saved">You save</string>
+    <string name="split_total">Total</string>
+    <string name="split_people">People</string>
+    <string name="split_tip">Tip % (optional)</string>
+    <string name="split_per_person">Per person</string>
+    <string name="split_grand">Grand total</string>
 </resources>

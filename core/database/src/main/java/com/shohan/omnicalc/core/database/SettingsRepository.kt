@@ -39,7 +39,6 @@ class SettingsRepository(private val context: Context) {
         val HAPTICS = booleanPreferencesKey("haptics_enabled")
         val MEMORY = stringPreferencesKey("memory_value")
         val LAND_PROFILES = stringPreferencesKey("land_profiles")
-        val CURRENCY_RATES = stringPreferencesKey("currency_rates")
         val VAT_SOURCE = stringPreferencesKey("vat_source")
         val VAT_EFFECTIVE = stringPreferencesKey("vat_effective")
     }
@@ -57,7 +56,6 @@ class SettingsRepository(private val context: Context) {
             hapticsEnabled = p[Keys.HAPTICS] ?: AppSettings().hapticsEnabled,
             memoryValue = p[Keys.MEMORY],
             landProfilesRaw = p[Keys.LAND_PROFILES],
-            currencyRatesRaw = p[Keys.CURRENCY_RATES],
             vatSource = p[Keys.VAT_SOURCE],
             vatEffectiveDate = p[Keys.VAT_EFFECTIVE],
         )
@@ -77,7 +75,6 @@ class SettingsRepository(private val context: Context) {
     }
 
     suspend fun setLandProfiles(value: String) = edit { it[Keys.LAND_PROFILES] = value }
-    suspend fun setCurrencyRates(value: String) = edit { it[Keys.CURRENCY_RATES] = value }
     suspend fun setVatSource(value: String?) = edit { p ->
         if (value.isNullOrBlank()) p.remove(Keys.VAT_SOURCE) else p[Keys.VAT_SOURCE] = value
     }
