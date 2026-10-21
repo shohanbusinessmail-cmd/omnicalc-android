@@ -6,6 +6,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import com.shohan.omnicalc.core.common.ThemeMode
 
 // ---------------------------------------------------------------------------
 // OmniCalc design tokens (spec §2.1). Values validated for WCAG contrast:
@@ -86,9 +87,6 @@ private val DarkColors = darkColorScheme(
     secondary = OmniDarkTextSecondary,
     onSecondary = Color(0xFF101625),
 )
-
-/** Theme preference applied from settings (spec §2.2). */
-enum class ThemeMode { SYSTEM, LIGHT, DARK }
 
 /**
  * OmniCalc theme. Follows the system by default; the persisted

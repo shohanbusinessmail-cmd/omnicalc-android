@@ -14,7 +14,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.Email
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -156,7 +156,7 @@ fun AboutScreen(onBack: () -> Unit) {
                     emailFailure = true
                 }
             }) {
-                Icon(Icons.AutoMirrored.Filled.Email, contentDescription = null)
+                Icon(Icons.Filled.Email, contentDescription = null)
                 Spacer(Modifier.size(8.dp))
                 Text(stringResource(R.string.about_contact))
             }
