@@ -61,13 +61,14 @@ import java.util.Date
  * every control here performs a real, persisted action.
  *
  * @param onOpenAbout navigates to the About screen (host route)
- * @param onReuseExpression hands an expression back to the calculator
+ * @param onReuseExpression hands a saved item back to its owning screen
+ *   (type "calculation" → calculator, "formula" → formula detail)
  * @param onLanguageChanged applies per-app locale immediately (host concern)
  */
 @Composable
 fun LibraryScreen(
     onOpenAbout: () -> Unit,
-    onReuseExpression: (expression: String, result: String?) -> Unit,
+    onReuseExpression: (expression: String, result: String?, type: String) -> Unit,
     onLanguageChanged: (LanguageMode) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: LibraryViewModel = viewModel(factory = LibraryViewModel.factory()),
@@ -102,7 +103,7 @@ fun LibraryScreen(
 @Composable
 private fun HistoryTab(
     vm: LibraryViewModel,
-    onReuse: (String, String?) -> Unit,
+    onReuse: (String, String?, String) -> Unit,
     modifier: Modifier,
 ) {
     val history by vm.history.collectAsStateWithLifecycle()
@@ -149,7 +150,7 @@ private fun HistoryTab(
                                 Column(
                                     modifier = Modifier
                                         .weight(1f)
-                                        .clickable { onReuse(entry.expression, entry.resultPlain) },
+                                        .clickable { onReuse(entry.expression, entry.resultPlain, LibraryViewModel.TYPE_CALCULATION) },
                                 ) {
                                     Text(
                                         text = entry.expression,
@@ -218,7 +219,7 @@ private fun HistoryTab(
 @Composable
 private fun FavoritesTab(
     vm: LibraryViewModel,
-    onReuse: (String, String?) -> Unit,
+    onReuse: (String, String?, String) -> Unit,
     modifier: Modifier,
 ) {
     val favorites by vm.favorites.collectAsStateWithLifecycle()
@@ -231,7 +232,7 @@ private fun FavoritesTab(
                 items(favorites, key = { it.id }) { fav ->
                     OmniCard(
                         modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
-                        onClick = { onReuse(fav.payload, fav.subtitle) },
+                        onClick = { onReuse(fav.payload, fav.subtitle, fav.type) },
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Column(modifier = Modifier.weight(1f)) {

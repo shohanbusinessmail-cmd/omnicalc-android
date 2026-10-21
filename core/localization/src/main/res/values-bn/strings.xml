@@ -127,4 +127,17 @@
     <string name="settings_reset_confirm">সব পছন্দনির্ধারণ ডিফল্টে ফেরাবেন?</string>
     <string name="settings_about">OmniCalc সম্পর্কে</string>
     <string name="settings_saved_note">পছন্দনির্ধারণ স্বয়ংক্রিয়ভাবে সংরক্ষিত হয়।</string>
+    <!-- Formula catalog (spec §9) -->
+    <string name="formula_search_hint">সূত্র খুঁজুন</string>
+    <string name="formula_no_matches">আপনার অনুসন্ধানের সাথে মিলে এমন কোনো সূত্র নেই।</string>
+    <string name="formula_compute">হিসাব করুন</string>
+    <string name="formula_description">বিবরণ</string>
+    <string name="formula_howto">কীভাবে ব্যবহার করবেন</string>
+    <string name="formula_usedin">যেখানে ব্যবহৃত হয়</string>
+    <string name="formula_result">ফলাফল</string>
+    <string name="formula_error_required">আগে সব ভেরিয়েবল পূরণ করুন।</string>
+    <string name="formula_error_number">প্রতিটি ভেরিয়েবলে একটি সংখ্যা দিন (12 বা ১২ — দুটোই চলবে)।</string>
+    <string name="formula_all">সব</string>
+    <string name="formula_expand">বিস্তারিত দেখুন</string>
+    <string name="formula_collapse">বিস্তারিত লুকান</string>
 </resources>

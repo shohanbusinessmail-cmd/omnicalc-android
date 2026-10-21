@@ -308,15 +308,8 @@ class CalculatorViewModel(
         significantDigits = 15,
     )
 
-    private fun formatResult(value: java.math.BigDecimal, exact: Boolean): String {
-        val plain = when (settings.precisionMode) {
-            com.shohan.omnicalc.core.common.PrecisionMode.AUTO -> value.stripTrailingZeros().toPlainString()
-            com.shohan.omnicalc.core.common.PrecisionMode.FIXED ->
-                value.setScale(settings.decimalPlaces, java.math.RoundingMode.HALF_UP).toPlainString()
-        }
-        val grouped = com.shohan.omnicalc.core.common.NumberGrouping.group(plain, settings.groupingStyle)
-        return com.shohan.omnicalc.core.common.Numerals.applyNumeralStyle(grouped, settings.numeralStyle)
-    }
+    private fun formatResult(value: java.math.BigDecimal, exact: Boolean): String =
+        com.shohan.omnicalc.core.common.DisplayFormatter.format(value, settings)
 
     /** Localized error message via the injected string-resource mapper. */
     private fun localizeError(code: com.shohan.omnicalc.core.math.ErrorCode): String =

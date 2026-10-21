@@ -127,4 +127,17 @@
     <string name="settings_reset_confirm">Reset all preferences to defaults?</string>
     <string name="settings_about">About OmniCalc</string>
     <string name="settings_saved_note">Preferences save automatically.</string>
+    <!-- Formula catalog (spec §9) -->
+    <string name="formula_search_hint">Search formulas</string>
+    <string name="formula_no_matches">No formula matches your search.</string>
+    <string name="formula_compute">Compute</string>
+    <string name="formula_description">Description</string>
+    <string name="formula_howto">How to use</string>
+    <string name="formula_usedin">Used in</string>
+    <string name="formula_result">Result</string>
+    <string name="formula_error_required">Fill in every variable first.</string>
+    <string name="formula_error_number">Each variable needs a number (digits like 12 or ১২ are fine).</string>
+    <string name="formula_all">All</string>
+    <string name="formula_expand">Show details</string>
+    <string name="formula_collapse">Hide details</string>
 </resources>

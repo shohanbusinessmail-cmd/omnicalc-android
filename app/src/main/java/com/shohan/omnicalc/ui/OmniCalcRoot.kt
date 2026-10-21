@@ -33,6 +33,7 @@ import androidx.navigation.compose.rememberNavController
 import com.shohan.omnicalc.core.common.AppSettings
 import com.shohan.omnicalc.core.common.LanguageMode
 import com.shohan.omnicalc.feature.calculator.CalculatorScreen
+import com.shohan.omnicalc.feature.formulas.FormulasScreen
 import com.shohan.omnicalc.feature.library.LibraryScreen
 import com.shohan.omnicalc.feature.scientific.ScientificScreen
 import com.shohan.omnicalc.R
@@ -58,15 +59,24 @@ fun OmniCalcRoot(settings: AppSettings, modifier: Modifier = Modifier) {
         Tab("library", R.string.nav_library) { Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = null) },
     )
 
-    // Expression handed Library → Calculator (shared at shell level so tab
-    // switches never lose it).
+    // Items handed Library → their owning screen (shared at shell level so
+    // tab switches never lose them).
     var pendingExpression by rememberSaveable { mutableStateOf<String?>(null) }
+    var pendingFormulaId by rememberSaveable { mutableStateOf<String?>(null) }
 
-    val onReuse: (String, String?) -> Unit = { expr, _ ->
-        pendingExpression = expr
-        navController.navigate("calculate") {
-            popUpTo(navController.graph.findStartDestination().id) { saveState = true }
-            launchSingleTop = true
+    val onReuse: (String, String?, String) -> Unit = { payload, _, type ->
+        if (type == "formula") {
+            pendingFormulaId = payload
+            navController.navigate("formulas") {
+                popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                launchSingleTop = true
+            }
+        } else {
+            pendingExpression = payload
+            navController.navigate("calculate") {
+                popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                launchSingleTop = true
+            }
         }
     }
 
@@ -138,7 +148,12 @@ fun OmniCalcRoot(settings: AppSettings, modifier: Modifier = Modifier) {
                     onExpressionConsumed = { pendingExpression = null },
                 )
             }
-            composable("formulas") { PlaceholderFormulas() }
+            composable("formulas") {
+                FormulasScreen(
+                    pendingFormulaId = pendingFormulaId,
+                    onPendingConsumed = { pendingFormulaId = null },
+                )
+            }
             composable("tools") { PlaceholderTools() }
             composable("library") {
                 LibraryScreen(
