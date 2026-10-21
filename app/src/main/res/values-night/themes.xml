@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark-system first frames (matches the Compose dark tokens #101625). -->
+    <style name="Theme.OmniCalc" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/omni_dark_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

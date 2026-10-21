@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base app theme. Material DayNight provided by Android framework;
-         Compose supplies the real colors via OmniCalcTheme. -->
-    <style name="Theme.OmniCalc" parent="android:Theme.Material.Light.NoActionBar">
+    <!-- Base app theme. MUST be an AppCompat descendant: MainActivity is
+         AppCompatActivity and crashes instantly with a framework-only theme
+         ("You need to use a Theme.AppCompat theme…"). Compose supplies the
+         real colors via OmniCalcTheme; XML values only style the first
+         frames before Compose draws. -->
+    <style name="Theme.OmniCalc" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/omni_background</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
-    <!-- Splash theme (androidx core-splashscreen backport) -->
+    <!-- Splash theme (androidx core-splashscreen backport). installSplashScreen()
+         applies postSplashScreenTheme before super.onCreate(), so that theme
+         (above) must stay AppCompat-compatible. -->
     <style name="Theme.OmniCalc.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/omni_primary</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>

@@ -5,6 +5,19 @@ honesty rules: nothing is listed as done unless implemented and verified.
 
 ## [Unreleased]
 
+### Fixed
+- **Startup crash ("app opens then closes"):** `Theme.OmniCalc` was based on
+  the framework Material theme while `MainActivity` is `AppCompatActivity` —
+  AppCompat throws *"You need to use a Theme.AppCompat theme (or descendant)"*
+  at first `setContentView`. The theme now parents `Theme.AppCompat.DayNight.NoActionBar`
+  (plus a night variant for the first-frame background). *Reported on device
+  after RC1 install.*
+- **Launcher icon clipped:** the infinity mark's stroked edges reached
+  18.5..89.5 of the 108 viewport, outside the adaptive safe zone (21..87), so
+  round masks shaved the loops. All icon layers (foreground, monochrome,
+  legacy square/round) now carry a 0.9 center-scaled group — full artwork
+  incl. stroke fits 22..86.
+
 ### Added
 - **Tools increment 2** — land profiles (editable, region/source/effective
   metadata), VAT (inclusive/exclusive + provenance fields), salary rows,

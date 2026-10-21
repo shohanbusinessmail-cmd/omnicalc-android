@@ -12,6 +12,9 @@
     <color name="omni_error_background">#FCE9E9</color>
     <color name="omni_error_text">#B42318</color>
 
+    <!-- Dark first-frame background (night) -->
+    <color name="omni_dark_background">#101625</color>
+
     <!-- Adaptive icon -->
     <color name="ic_launcher_background">#326CF4</color>
     <color name="ic_launcher_foreground">#FFFFFF</color>
