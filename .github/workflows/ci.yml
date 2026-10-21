@@ -28,7 +28,15 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      # Compile first: one cycle then reports every Kotlin/resource error
+      # even when later steps would fail anyway. All steps use always() so a
+      # failure in one still surfaces logs for the others.
+      - name: Debug build
+        shell: bash
+        run: ./gradlew --no-daemon --stacktrace assembleDebug 2>&1 | tee gradle-assemble.log
+
       - name: Run unit tests
+        if: always()
         shell: bash
         run: ./gradlew --no-daemon --stacktrace test 2>&1 | tee gradle-test.log
 
@@ -36,10 +44,6 @@ jobs:
         if: always()
         shell: bash
         run: ./gradlew --no-daemon --stacktrace lint 2>&1 | tee gradle-lint.log
-
-      - name: Debug build
-        shell: bash
-        run: ./gradlew --no-daemon --stacktrace assembleDebug 2>&1 | tee gradle-assemble.log
 
       # Surface the actual Gradle errors as annotations (readable via the
       # GitHub API from the sandbox, unlike raw logs/artifacts).
