@@ -187,4 +187,37 @@
     <string name="date_pick">তারিখ বাছুন</string>
     <string name="date_error_order">শেষ তারিখ শুরুর তারিখের আগে হতে পারে না।</string>
     <string name="converter_save">ইতিহাসে সংরক্ষণ করুন</string>
+    <string name="land_profile">জমির প্রোফাইল</string>
+    <string name="land_units_note">নিচের এককগুলো সম্পাদনাযোগ্য — আপনার এলাকায় যাচাই করা মান লিখুন।</string>
+    <string name="land_sqft_factor">প্রতি এককে বর্গফুট</string>
+    <string name="land_source">সূত্র / নোট</string>
+    <string name="land_effective">কার্যকর তারিখ</string>
+    <string name="land_save">প্রোফাইল সংরক্ষণ</string>
+    <string name="land_reset">বিল্ট-ইন প্রোফাইলে ফিরুন</string>
+    <string name="land_verify_note">শুধু রেফারেন্স মান — নির্ভর করার আগে স্থানীয় নথিতে যাচাই করুন।</string>
+    <string name="salary_earning">আয়</string>
+    <string name="salary_deduction">কর্তন</string>
+    <string name="salary_add_earning">+ আয় যোগ করুন</string>
+    <string name="salary_add_deduction">+ কর্তন যোগ করুন</string>
+    <string name="salary_net">নিট বেতন</string>
+    <string name="salary_deduction_pct">কর্তনের শতকরা</string>
+    <string name="salary_label_hint">উপাদানের নাম</string>
+    <string name="currency_missing_rate">এখনো রেট দেওয়া হয়নি — সম্পাদনায় আজকের যাচাইকৃত রেট ও সূত্র লিখুন।</string>
+    <string name="currency_rate_bdt">রেট (প্রতি এককে বিডিটি)</string>
+    <string name="currency_source">রেটের সূত্র</string>
+    <string name="currency_effective">রেটের কার্যকর তারিখ</string>
+    <string name="currency_to_bdt">→ বিডিটি</string>
+    <string name="currency_from_bdt">বিডিটি →</string>
+    <string name="vat_mode_exclusive">দাম + ভ্যাট</string>
+    <string name="vat_mode_inclusive">ভ্যাট অন্তর্ভুক্ত</string>
+    <string name="vat_rate">ভ্যাটের হার %</string>
+    <string name="vat_net">নিট</string>
+    <string name="vat_tax">ভ্যাট</string>
+    <string name="vat_gross">মোট</string>
+    <string name="vat_metadata">সূত্র (হারটি কার বলা?)</string>
+    <string name="graph_expr">ফাংশন y =</string>
+    <string name="graph_xrange">X সীমা (সর্বনিম্ন … সর্বোচ্চ)</string>
+    <string name="graph_plot">প্লট</string>
+    <string name="graph_points">পয়েন্ট প্লট হয়েছে</string>
+    <string name="graph_skipped">পয়েন্ট বাদ পড়েছে (সেখানে অস্থিত)</string>
 </resources>

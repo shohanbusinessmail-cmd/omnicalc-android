@@ -187,4 +187,37 @@
     <string name="date_pick">Pick date</string>
     <string name="date_error_order">End date must not be before the start date.</string>
     <string name="converter_save">Save to history</string>
+    <string name="land_profile">Land profile</string>
+    <string name="land_units_note">Units below are editable — enter values verified for your locality.</string>
+    <string name="land_sqft_factor">Sq ft per unit</string>
+    <string name="land_source">Source / notes</string>
+    <string name="land_effective">Effective date</string>
+    <string name="land_save">Save profile</string>
+    <string name="land_reset">Reset to built-in profiles</string>
+    <string name="land_verify_note">Reference values only — verify with local records before relying on them.</string>
+    <string name="salary_earning">Earnings</string>
+    <string name="salary_deduction">Deductions</string>
+    <string name="salary_add_earning">+ Add earning</string>
+    <string name="salary_add_deduction">+ Add deduction</string>
+    <string name="salary_net">Net pay</string>
+    <string name="salary_deduction_pct">Deduction %</string>
+    <string name="salary_label_hint">Component name</string>
+    <string name="currency_missing_rate">No rate entered yet — tap edit to record today’s verified rate with its source.</string>
+    <string name="currency_rate_bdt">Rate (BDT per unit)</string>
+    <string name="currency_source">Rate source</string>
+    <string name="currency_effective">Rate effective date</string>
+    <string name="currency_to_bdt">→ BDT</string>
+    <string name="currency_from_bdt">BDT →</string>
+    <string name="vat_mode_exclusive">Price + VAT</string>
+    <string name="vat_mode_inclusive">VAT included</string>
+    <string name="vat_rate">VAT rate %</string>
+    <string name="vat_net">Net</string>
+    <string name="vat_tax">VAT</string>
+    <string name="vat_gross">Gross</string>
+    <string name="vat_metadata">Provenance (who says this rate?)</string>
+    <string name="graph_expr">Function y =</string>
+    <string name="graph_xrange">X range (min … max)</string>
+    <string name="graph_plot">Plot</string>
+    <string name="graph_points">points plotted</string>
+    <string name="graph_skipped">points skipped (undefined there)</string>
 </resources>

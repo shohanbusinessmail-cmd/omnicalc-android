@@ -35,7 +35,7 @@ class ToolsViewModel(
     private val divisionMessage: String,
 ) : ViewModel() {
 
-    enum class Tool { HOME, CONVERTER, PROGRAMMER, DATE }
+    enum class Tool { HOME, CONVERTER, PROGRAMMER, DATE, LAND, VAT, SALARY, CURRENCY, GRAPH }
     enum class DateMode { DIFF, SHIFT, AGE }
     enum class Base(val radix: Int, val filter: Regex, val label: String) {
         BIN(2, Regex("[01]+"), "BIN"),
@@ -267,7 +267,7 @@ class ToolsViewModel(
             DateMode.DIFF -> {
                 val a = parseIso(s.startDate) ?: return dateFail(numberMessage)
                 val b = parseIso(s.endDate) ?: return dateFail(numberMessage)
-                if (DateMath.toEpochDay(*a) > DateMath.toEpochDay(*b)) return dateFail(dateOrderMessage)
+                if (DateMath.toEpochDay(a[0], a[1], a[2]) > DateMath.toEpochDay(b[0], b[1], b[2])) return dateFail(dateOrderMessage)
                 val days = DateMath.diffDays(a[0], a[1], a[2], b[0], b[1], b[2])
                 val weeks = days / 7
                 val rem = days % 7
@@ -294,7 +294,7 @@ class ToolsViewModel(
                 val b = parseIso(s.birthDate) ?: return dateFail(numberMessage)
                 val today = todayIso()
                 val t = parseIso(today) ?: return dateFail(numberMessage)
-                if (DateMath.toEpochDay(*b) > DateMath.toEpochDay(*t)) return dateFail(dateOrderMessage)
+                if (DateMath.toEpochDay(b[0], b[1], b[2]) > DateMath.toEpochDay(t[0], t[1], t[2])) return dateFail(dateOrderMessage)
                 val years = DateMath.ageYears(b[0], b[1], b[2], t[0], t[1], t[2])
                 val lived = DateMath.diffDays(b[0], b[1], b[2], t[0], t[1], t[2])
                 _ui.update { it.copy(dateResult = "$years years · $lived days lived", dateError = null) }

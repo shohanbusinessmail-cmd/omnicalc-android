@@ -43,6 +43,11 @@ fun ToolsScreen(
         ToolsViewModel.Tool.CONVERTER -> ConverterTool(ui = ui, viewModel = viewModel, modifier = modifier)
         ToolsViewModel.Tool.PROGRAMMER -> ProgrammerTool(ui = ui, viewModel = viewModel, modifier = modifier)
         ToolsViewModel.Tool.DATE -> DateTool(ui = ui, viewModel = viewModel, modifier = modifier)
+        ToolsViewModel.Tool.LAND -> LandTool(modifier = modifier)
+        ToolsViewModel.Tool.VAT -> VatTool(modifier = modifier)
+        ToolsViewModel.Tool.SALARY -> SalaryTool(modifier = modifier)
+        ToolsViewModel.Tool.CURRENCY -> CurrencyTool(modifier = modifier)
+        ToolsViewModel.Tool.GRAPH -> GraphTool(modifier = modifier)
     }
 }
 
@@ -74,6 +79,31 @@ private fun ToolsHome(
             title = stringResource(LocR.string.tool_datetime),
             subtitle = stringResource(LocR.string.tool_datetime_desc),
             onClick = { onOpen(ToolsViewModel.Tool.DATE) },
+        )
+        ToolCard(
+            title = stringResource(LocR.string.tool_land),
+            subtitle = stringResource(LocR.string.tool_land_desc),
+            onClick = { onOpen(ToolsViewModel.Tool.LAND) },
+        )
+        ToolCard(
+            title = stringResource(LocR.string.tool_salary),
+            subtitle = stringResource(LocR.string.tool_salary_desc),
+            onClick = { onOpen(ToolsViewModel.Tool.SALARY) },
+        )
+        ToolCard(
+            title = stringResource(LocR.string.tool_vat),
+            subtitle = stringResource(LocR.string.tool_vat_desc),
+            onClick = { onOpen(ToolsViewModel.Tool.VAT) },
+        )
+        ToolCard(
+            title = stringResource(LocR.string.tool_currency),
+            subtitle = stringResource(LocR.string.tool_currency_desc),
+            onClick = { onOpen(ToolsViewModel.Tool.CURRENCY) },
+        )
+        ToolCard(
+            title = stringResource(LocR.string.tool_graph),
+            subtitle = stringResource(LocR.string.tool_graph_desc),
+            onClick = { onOpen(ToolsViewModel.Tool.GRAPH) },
         )
         Spacer(Modifier.height(16.dp))
     }

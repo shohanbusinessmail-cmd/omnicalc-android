@@ -19,6 +19,13 @@ data class AppSettings(
     val hapticsEnabled: Boolean = true,
     /** Remember last memory value across restarts (spec §4.6). */
     val memoryValue: String? = null,
+    /** Serialized editable land profiles (see LandProfiles.serialize). */
+    val landProfilesRaw: String? = null,
+    /** Serialized offline currency table (rate|source|effective per line). */
+    val currencyRatesRaw: String? = null,
+    /** Provenance metadata the user entered for the VAT tool (spec §11.5). */
+    val vatSource: String? = null,
+    val vatEffectiveDate: String? = null,
 ) {
     init {
         require(decimalPlaces in 0..12) { "decimalPlaces must be 0..12" }
