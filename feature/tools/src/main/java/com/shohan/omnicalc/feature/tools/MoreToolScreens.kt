@@ -282,7 +282,7 @@ fun VatTool(
             value = ui.source,
             onValueChange = viewModel::setSource,
             modifier = Modifier.fillMaxWidth(),
-            label = { Text(stringResource(LocR.string.currency_source)) },
+            label = { Text(stringResource(LocR.string.land_source)) },
             placeholder = { Text(stringResource(LocR.string.land_verify_note)) },
         )
         Spacer(Modifier.height(6.dp))
