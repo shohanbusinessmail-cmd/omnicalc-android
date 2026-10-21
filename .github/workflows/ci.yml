@@ -29,23 +29,42 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Run unit tests
-        run: ./gradlew --no-daemon --stacktrace test
+        shell: bash
+        run: ./gradlew --no-daemon --stacktrace test 2>&1 | tee gradle-test.log
 
       - name: Lint
         if: always()
-        run: ./gradlew --no-daemon --stacktrace lint
+        shell: bash
+        run: ./gradlew --no-daemon --stacktrace lint 2>&1 | tee gradle-lint.log
 
       - name: Debug build
-        run: ./gradlew --no-daemon --stacktrace assembleDebug
+        shell: bash
+        run: ./gradlew --no-daemon --stacktrace assembleDebug 2>&1 | tee gradle-assemble.log
 
-      - name: Upload test reports
+      # The sandbox cannot fetch Actions logs from the results-receiver host,
+      # so failures are surfaced through the job summary (github.com) and
+      # through uploaded log artifacts (api.github.com).
+      - name: Publish failure details to job summary
+        if: failure()
+        run: |
+          for f in gradle-test.log gradle-lint.log gradle-assemble.log; do
+            [ -f "$f" ] || continue
+            {
+              echo "### $f (last 250 lines)"
+              echo '```'
+              tail -n 250 "$f"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          done
+
+      - name: Upload logs and reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: reports
+          name: ci-output
           path: |
-            **/build/reports/tests/**
-            **/build/reports/lint-results*
+            gradle-*.log
+            **/build/reports/**
             **/build/outputs/**/*.apk
           if-no-files-found: warn
           retention-days: 14
@@ -70,7 +89,18 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Assemble release APK + App Bundle (unsigned)
-        run: ./gradlew --no-daemon --stacktrace assembleRelease bundleRelease
+        shell: bash
+        run: ./gradlew --no-daemon --stacktrace assembleRelease bundleRelease 2>&1 | tee gradle-release.log
+
+      - name: Publish failure details to job summary
+        if: failure()
+        run: |
+          {
+            echo "### gradle-release.log (last 250 lines)"
+            echo '```'
+            tail -n 250 gradle-release.log 2>/dev/null || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Checksums
         run: |
