@@ -1,5 +1,8 @@
 package com.shohan.omnicalc.core.math
 
+import com.shohan.omnicalc.core.common.AngleMode
+import com.shohan.omnicalc.core.common.PercentMode
+
 /**
  * Evaluation context: the settings that change how an expression evaluates.
  * Pure data + pure config — no Android dependencies.
@@ -21,13 +24,3 @@ data class EvalContext(
         val DEFAULT = EvalContext()
     }
 }
-
-/** Angle unit for trigonometric functions. */
-enum class AngleMode { DEG, RAD, GRAD }
-
-/**
- * Percent semantics (spec §4.5).
- *  - [STANDARD]: `200 + 10%` → 220, `200 − 10%` → 180, `200 × 10%` → 20.
- *  - [EXPLICIT]: `%` always means ÷100 (formula tools; unambiguous).
- */
-enum class PercentMode { STANDARD, EXPLICIT }

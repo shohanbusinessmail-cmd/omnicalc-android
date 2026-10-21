@@ -23,5 +23,11 @@ dependencyResolutionManagement {
 rootProject.name = "OmniCalc"
 
 include(":app")
-include(":core:math")
 include(":core:common")
+include(":core:math")
+include(":core:database")
+include(":core:designsystem")
+include(":core:localization")
+include(":feature:calculator")
+include(":feature:scientific")
+include(":feature:library")

@@ -1,5 +1,8 @@
 package com.shohan.omnicalc.core.math
 
+import com.shohan.omnicalc.core.common.AngleMode
+import com.shohan.omnicalc.core.common.PercentMode
+
 import com.shohan.omnicalc.core.math.ast.BinaryOp
 import com.shohan.omnicalc.core.math.ast.Expr
 import com.shohan.omnicalc.core.math.ast.UnaryOp

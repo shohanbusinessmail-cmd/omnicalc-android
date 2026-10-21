@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common actions (shared by app + all features) -->
+    <string name="action_copy">Copy</string>
+    <string name="action_share">Share</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_search">Search</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_close">Close</string>
+    <string name="action_ok">OK</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_reuse">Use again</string>
+    <string name="action_favorite">Add to favorites</string>
+    <string name="action_unfavorite">Remove from favorites</string>
+    <string name="action_clear_history">Clear history</string>
+    <string name="action_confirm_clear_history">Delete all calculation history? This cannot be undone.</string>
+
+    <!-- Engine error codes → localized UI strings (spec §4.4, §8.1) -->
+    <string name="engine_error_empty_input">Enter a calculation.</string>
+    <string name="engine_error_syntax">Check the expression — something isn\'t valid.</string>
+    <string name="engine_error_unexpected_end">The expression is incomplete.</string>
+    <string name="engine_error_missing_operand">A value is missing.</string>
+    <string name="engine_error_mismatched_paren">Check the parentheses.</string>
+    <string name="engine_error_division_by_zero">Cannot divide by zero.</string>
+    <string name="engine_error_domain">That value is outside the valid range for this operation.</string>
+    <string name="engine_error_factorial_domain">Factorial needs a whole number of 0 or more.</string>
+    <string name="engine_error_overflow">The result is too large to display.</string>
+    <string name="engine_error_too_large">That computation is too large to run.</string>
+    <string name="engine_error_unknown_function">Unknown function.</string>
+    <string name="engine_error_unknown_variable">Unknown name in the expression.</string>
+    <string name="engine_error_input_too_complex">The expression is too long or nested too deeply.</string>
+    <string name="engine_error_generic">Couldn\'t calculate that. Please check the input.</string>
+
+    <!-- Display labels -->
+    <string name="label_approximate">Approximate value</string>
+    <string name="label_result">Result</string>
+    <string name="label_expression">Expression</string>
+    <string name="label_preview">Preview</string>
+    <string name="label_memory_indicator">Memory stored</string>
+    <string name="angle_mode_deg">DEG</string>
+    <string name="angle_mode_rad">RAD</string>
+    <string name="angle_mode_grad">GRAD</string>
+
+    <!-- Keypad accessibility descriptions (symbols stay symbolic visually) -->
+    <string name="key_desc_add">Add</string>
+    <string name="key_desc_subtract">Subtract</string>
+    <string name="key_desc_multiply">Multiply</string>
+    <string name="key_desc_divide">Divide</string>
+    <string name="key_desc_equals">Equals</string>
+    <string name="key_desc_percent">Percent</string>
+    <string name="key_desc_decimal">Decimal point</string>
+    <string name="key_desc_toggle_sign">Toggle sign</string>
+    <string name="key_desc_backspace">Backspace</string>
+    <string name="key_desc_clear">All clear</string>
+    <string name="key_desc_clear_entry">Clear entry</string>
+    <string name="key_desc_open_paren">Open parenthesis</string>
+    <string name="key_desc_close_paren">Close parenthesis</string>
+    <string name="key_desc_memory_clear">Memory clear</string>
+    <string name="key_desc_memory_recall">Memory recall</string>
+    <string name="key_desc_memory_add">Memory add</string>
+    <string name="key_desc_memory_subtract">Memory subtract</string>
+    <string name="key_desc_memory_store">Memory store</string>
+    <string name="key_desc_sin">Sine</string>
+    <string name="key_desc_cos">Cosine</string>
+    <string name="key_desc_tan">Tangent</string>
+    <string name="key_desc_asin">Inverse sine</string>
+    <string name="key_desc_acos">Inverse cosine</string>
+    <string name="key_desc_atan">Inverse tangent</string>
+    <string name="key_desc_ln">Natural logarithm</string>
+    <string name="key_desc_log">Base-10 logarithm</string>
+    <string name="key_desc_sqrt">Square root</string>
+    <string name="key_desc_cbrt">Cube root</string>
+    <string name="key_desc_power">Power</string>
+    <string name="key_desc_factorial">Factorial</string>
+    <string name="key_desc_exp">e to the power of</string>
+    <string name="key_desc_pi">Pi</string>
+    <string name="key_desc_euler">Euler\'s number</string>
+    <string name="key_desc_abs">Absolute value</string>
+    <string name="key_desc_inverse">Reciprocal</string>
+    <string name="key_desc_degree_suffix">Degrees</string>
+    <string name="key_desc_parentheses">Parentheses</string>
+    <string name="key_desc_ans">Answer</string>
+
+    <!-- Calculator status -->
+    <string name="calc_history_saved">Saved to history</string>
+    <string name="calc_copied">Copied</string>
+    <string name="calc_shared_via">Share calculation</string>
+    <!-- Library destinations (history/favorites/settings) -->
+    <string name="lib_tab_history">History</string>
+    <string name="lib_tab_favorites">Favorites</string>
+    <string name="lib_tab_settings">Settings</string>
+    <string name="lib_history_empty">Calculations you save will appear here.</string>
+    <string name="lib_favorites_empty">Star a calculation or formula to keep it here.</string>
+    <string name="lib_no_results">No matching calculations.</string>
+    <string name="lib_search_history_hint">Search history</string>
+    <string name="lib_delete_entry">Delete entry</string>
+    <string name="settings_section_appearance">Appearance</string>
+    <string name="settings_section_language">Language</string>
+    <string name="settings_section_numbers">Numbers</string>
+    <string name="settings_section_calculation">Calculation</string>
+    <string name="settings_section_feedback">Feedback</string>
+    <string name="settings_section_data">Data</string>
+    <string name="setting_theme">Theme</string>
+    <string name="setting_language">App language</string>
+    <string name="setting_numerals">Numeral style</string>
+    <string name="setting_grouping">Number grouping</string>
+    <string name="setting_precision">Result precision</string>
+    <string name="setting_decimal_places">Decimal places</string>
+    <string name="setting_angle">Angle unit</string>
+    <string name="setting_percent">Percent behavior</string>
+    <string name="setting_haptics">Haptic feedback</string>
+    <string name="option_system">Follow system</string>
+    <string name="option_light">Light</string>
+    <string name="option_dark">Dark</string>
+    <string name="option_english">English</string>
+    <string name="option_bengali">বাংলা</string>
+    <string name="option_western">0 1 2 3 (Western)</string>
+    <string name="option_bengali_numerals">০ ১ ২ ৩ (Bengali)</string>
+    <string name="option_grouping_international">1,234,567 (international)</string>
+    <string name="option_grouping_south_asian">12,34,567 (South Asian)</string>
+    <string name="option_precision_auto">Trim trailing zeros</string>
+    <string name="option_precision_fixed">Fixed decimal places</string>
+    <string name="option_percent_standard">Everyday (200 + 10% = 220)</string>
+    <string name="option_percent_explicit">Exact (10% always = 0.1)</string>
+    <string name="settings_reset">Reset all preferences</string>
+    <string name="settings_reset_confirm">Reset all preferences to defaults?</string>
+    <string name="settings_about">About OmniCalc</string>
+    <string name="settings_saved_note">Preferences save automatically.</string>
+</resources>

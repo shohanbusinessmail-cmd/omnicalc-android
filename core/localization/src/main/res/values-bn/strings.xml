@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- সাধারণ অ্যাকশন (অ্যাপ + সব ফিচার শেয়ার করে) -->
+    <string name="action_copy">কপি</string>
+    <string name="action_share">শেয়ার</string>
+    <string name="action_delete">মুছুন</string>
+    <string name="action_clear">পরিষ্কার</string>
+    <string name="action_search">খুঁজুন</string>
+    <string name="action_settings">সেটিংস</string>
+    <string name="action_close">বন্ধ</string>
+    <string name="action_ok">ঠিক আছে</string>
+    <string name="action_cancel">বাতিল</string>
+    <string name="action_reuse">আবার ব্যবহার</string>
+    <string name="action_favorite">পছন্দের তালিকায় যোগ করুন</string>
+    <string name="action_unfavorite">পছন্দের তালিকা থেকে সরান</string>
+    <string name="action_clear_history">ইতিহাস মুছুন</string>
+    <string name="action_confirm_clear_history">সব হিসাবের ইতিহাস মুছে ফেলবেন? এটি আর ফেরানো যাবে না।</string>
+
+    <!-- ইঞ্জিন ত্রুটি কোড → বাংলা ইউআই স্ট্রিং -->
+    <string name="engine_error_empty_input">একটি হিসাব লিখুন।</string>
+    <string name="engine_error_syntax">সমীকরণটি পরীক্ষা করুন — কিছু একটা সঠিক নয়।</string>
+    <string name="engine_error_unexpected_end">সমীকরণটি অসম্পূর্ণ।</string>
+    <string name="engine_error_missing_operand">একটি মান অনুপস্থিত।</string>
+    <string name="engine_error_mismatched_paren">বন্ধনী পরীক্ষা করুন।</string>
+    <string name="engine_error_division_by_zero">শূন্য দিয়ে ভাগ করা যায় না।</string>
+    <string name="engine_error_domain">এই অপারেশনের জন্য মানটি বৈধ সীমার বাইরে।</string>
+    <string name="engine_error_factorial_domain">ফ্যাক্টরিয়ালের জন্য শূন্য বা তার বেশি পূর্ণসংখ্যা লাগে।</string>
+    <string name="engine_error_overflow">ফলাফলটি প্রদর্শনের জন্য খুব বড়।</string>
+    <string name="engine_error_too_large">হিসাবটি চালানোর জন্য খুব বড়।</string>
+    <string name="engine_error_unknown_function">অজানা ফাংশন।</string>
+    <string name="engine_error_unknown_variable">সমীকরণে অজানা নাম।</string>
+    <string name="engine_error_input_too_complex">সমীকরণটি খুব লম্বা বা অত্যধিক জটিল।</string>
+    <string name="engine_error_generic">হিসাব করা গেল না। ইনপুট পরীক্ষা করুন।</string>
+
+    <!-- ডিসপ্লে লেবেল -->
+    <string name="label_approximate">আনুমানিক মান</string>
+    <string name="label_result">ফলাফল</string>
+    <string name="label_expression">সমীকরণ</string>
+    <string name="label_preview">প্রিভিউ</string>
+    <string name="label_memory_indicator">মেমরি সংরক্ষিত</string>
+    <string name="angle_mode_deg">ডিগ্রি</string>
+    <string name="angle_mode_rad">রেডিয়ান</string>
+    <string name="angle_mode_grad">গ্রেড</string>
+
+    <!-- কিপ্যাড অ্যাক্সেসিবিলিটি বর্ণনা -->
+    <string name="key_desc_add">যোগ</string>
+    <string name="key_desc_subtract">বিয়োগ</string>
+    <string name="key_desc_multiply">গুণ</string>
+    <string name="key_desc_divide">ভাগ</string>
+    <string name="key_desc_equals">সমান</string>
+    <string name="key_desc_percent">শতকরা</string>
+    <string name="key_desc_decimal">দশমিক বিন্দু</string>
+    <string name="key_desc_toggle_sign">চিহ্ন পরিবর্তন</string>
+    <string name="key_desc_backspace">ব্যাকস্পেস</string>
+    <string name="key_desc_clear">সব মুছুন</string>
+    <string name="key_desc_clear_entry">এন্ট্রি মুছুন</string>
+    <string name="key_desc_open_paren">খোলা বন্ধনী</string>
+    <string name="key_desc_close_paren">বন্ধ বন্ধনী</string>
+    <string name="key_desc_memory_clear">মেমরি মুছুন</string>
+    <string name="key_desc_memory_recall">মেমরি ডাকুন</string>
+    <string name="key_desc_memory_add">মেমরিতে যোগ</string>
+    <string name="key_desc_memory_subtract">মেমরি থেকে বিয়োগ</string>
+    <string name="key_desc_memory_store">মেমরিতে রাখুন</string>
+    <string name="key_desc_sin">সাইন</string>
+    <string name="key_desc_cos">কোসাইন</string>
+    <string name="key_desc_tan">ট্যানজেন্ট</string>
+    <string name="key_desc_asin">বিপরীত সাইন</string>
+    <string name="key_desc_acos">বিপরীত কোসাইন</string>
+    <string name="key_desc_atan">বিপরীত ট্যানজেন্ট</string>
+    <string name="key_desc_ln">প্রাকৃতিক লগারিদম</string>
+    <string name="key_desc_log">দশমিক লগারিদম</string>
+    <string name="key_desc_sqrt">বর্গমূল</string>
+    <string name="key_desc_cbrt">ঘনমূল</string>
+    <string name="key_desc_power">ঘাত</string>
+    <string name="key_desc_factorial">ফ্যাক্টরিয়াল</string>
+    <string name="key_desc_exp">e এর ঘাত</string>
+    <string name="key_desc_pi">পাই</string>
+    <string name="key_desc_euler">ইউলার সংখ্যা</string>
+    <string name="key_desc_abs">পরম মান</string>
+    <string name="key_desc_inverse">ব্যস্ত মান</string>
+    <string name="key_desc_degree_suffix">ডিগ্রি</string>
+    <string name="key_desc_parentheses">বন্ধনী</string>
+    <string name="key_desc_ans">আগের ফলাফল</string>
+
+    <!-- ক্যালকুলেটর স্ট্যাটাস -->
+    <string name="calc_history_saved">ইতিহাসে সংরক্ষিত</string>
+    <string name="calc_copied">কপি হয়েছে</string>
+    <string name="calc_shared_via">হিসাব শেয়ার করুন</string>
+    <!-- Library destinations (history/favorites/settings) -->
+    <string name="lib_tab_history">ইতিহাস</string>
+    <string name="lib_tab_favorites">পছন্দসমূহ</string>
+    <string name="lib_tab_settings">সেটিংস</string>
+    <string name="lib_history_empty">আপনার সংরক্ষিত হিসাবগুলো এখানে দেখা যাবে।</string>
+    <string name="lib_favorites_empty">কোনো হিসাব বা সূত্র পছন্দের তালিকায় রাখুন।</string>
+    <string name="lib_no_results">কোনো মিলিয়ে যাওয়া হিসাব পাওয়া যায়নি।</string>
+    <string name="lib_search_history_hint">ইতিহাসে খুঁজুন</string>
+    <string name="lib_delete_entry">এন্ট্রি মুছুন</string>
+    <string name="settings_section_appearance">চেহারা</string>
+    <string name="settings_section_language">ভাষা</string>
+    <string name="settings_section_numbers">সংখ্যা</string>
+    <string name="settings_section_calculation">হিসাব</string>
+    <string name="settings_section_feedback">ফিডব্যাক</string>
+    <string name="settings_section_data">ডেটা</string>
+    <string name="setting_theme">থিম</string>
+    <string name="setting_language">অ্যাপের ভাষা</string>
+    <string name="setting_numerals">সংখ্যার ধরন</string>
+    <string name="setting_grouping">সংখ্যা গ্রুপিং</string>
+    <string name="setting_precision">ফলাফলের নির্ভুলতা</string>
+    <string name="setting_decimal_places">দশমিক স্থান</string>
+    <string name="setting_angle">কোণের একক</string>
+    <string name="setting_percent">শতকরা হিসাবের ধরন</string>
+    <string name="setting_haptics">হ্যাপটিক ফিডব্যাক</string>
+    <string name="option_system">সিস্টেম অনুসরণ করুন</string>
+    <string name="option_light">লাইট</string>
+    <string name="option_dark">ডার্ক</string>
+    <string name="option_english">English</string>
+    <string name="option_bengali">বাংলা</string>
+    <string name="option_western">0 1 2 3 (পাশ্চাত্য)</string>
+    <string name="option_bengali_numerals">০ ১ ২ ৩ (বাংলা)</string>
+    <string name="option_grouping_international">1,234,567 (আন্তর্জাতিক)</string>
+    <string name="option_grouping_south_asian">12,34,567 (দক্ষিণ এশিয়া)</string>
+    <string name="option_precision_auto">শেষ শূন্য বাদ দিন</string>
+    <string name="option_precision_fixed">নির্দিষ্ট দশমিক স্থান</string>
+    <string name="option_percent_standard">প্রচলিত (200 + 10% = 220)</string>
+    <string name="option_percent_explicit">সুনির্দিষ্ট (10% সর্বদা = 0.1)</string>
+    <string name="settings_reset">সব পছন্দনির্ধারণ রিসেট করুন</string>
+    <string name="settings_reset_confirm">সব পছন্দনির্ধারণ ডিফল্টে ফেরাবেন?</string>
+    <string name="settings_about">OmniCalc সম্পর্কে</string>
+    <string name="settings_saved_note">পছন্দনির্ধারণ স্বয়ংক্রিয়ভাবে সংরক্ষিত হয়।</string>
+</resources>

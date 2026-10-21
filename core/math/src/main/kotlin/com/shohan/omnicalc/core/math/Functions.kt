@@ -1,5 +1,8 @@
 package com.shohan.omnicalc.core.math
 
+import com.shohan.omnicalc.core.common.AngleMode
+import com.shohan.omnicalc.core.common.PercentMode
+
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.MathContext

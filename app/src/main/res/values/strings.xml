@@ -11,17 +11,27 @@
     <string name="nav_tools">Tools</string>
     <string name="nav_library">Library</string>
 
-    <!-- Common actions -->
-    <string name="action_copy">Copy</string>
-    <string name="action_share">Share</string>
-    <string name="action_delete">Delete</string>
-    <string name="action_clear">Clear</string>
-    <string name="action_search">Search</string>
-    <string name="action_settings">Settings</string>
-    <string name="action_close">Close</string>
-    <string name="action_ok">OK</string>
-    <string name="action_cancel">Cancel</string>
+    <!-- About (spec §18: exact facts only) -->
+    <string name="about_title">About OmniCalc</string>
+    <string name="about_developer">Developer / Owner</string>
+    <string name="about_owner">Shohan Khan</string>
+    <string name="about_email">helloiamshohan@gmail.com</string>
+    <string name="about_contact">Contact by email</string>
+    <string name="about_email_fallback">No email app found — please send to helloiamshohan@gmail.com</string>
+    <string name="about_description">OmniCalc is an offline-first calculator suite: a standard calculator with history and memory, a scientific mode, formula and unit tools, and a library that keeps your calculations, favorites and preferences — designed to feel local first in Bangladesh, then everywhere.</string>
+    <string name="about_features">• Standard and scientific calculators with live preview\n• History, favorites and memory\n• Bangla/English interface with ৳, South Asian grouping and Bengali numerals\n• Configurable angle, percent, precision and grouping behavior\n• Works fully offline — no account, no tracking</string>
+    <string name="about_privacy">Privacy</string>
+    <string name="about_privacy_body">OmniCalc requests no permissions, collects no data and connects to no servers. Calculations, favorites and preferences are stored only on this device, and you can clear them at any time from Library → History or Settings → Reset.</string>
+    <string name="about_licenses">Open-source acknowledgements</string>
+    <string name="about_licenses_body">Built with Kotlin, Jetpack Compose, AndroidX (Core, Splash Screen, AppCompat), Material Components, Room and DataStore — each under its own Apache 2.0 / BSD / Apache-style open-source license. OmniCalc itself is provided by the developer as-is.</string>
 
-    <!-- Errors -->
-    <string name="error_generic">Something went wrong. Check your input.</string>
+    <!-- Global search -->
+    <string name="search_title">Search</string>
+    <string name="search_hint">Search modes, tools, settings</string>
+    <string name="search_no_results">No matches. Try “science”, “history” or “language”.</string>
+
+    <!-- Interim destination notes (removed as each feature lands) -->
+    <string name="interim_formulas">Formula catalog is being built in the next increment — no fake entries here yet.</string>
+    <string name="interim_tools">Unit, currency, land, salary and programmer tools are being built in the next increment.</string>
+    <string name="interim_note">This honest placeholder will be replaced by the real, fully working screen.</string>
 </resources>

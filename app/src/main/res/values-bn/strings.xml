@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OmniCalc</string>
-    <string name="app_tagline">সব হিসাব, এক জায়গায়।</string>
-    <string name="tagline">সব হিসাব, এক জায়গায়।</string>
+    <string name="app_tagline">All Your Math. One Place.</string>
+    <string name="tagline">All Your Math. One Place.</string>
 
     <!-- Navigation destinations -->
     <string name="nav_calculate">হিসাব</string>
@@ -11,17 +11,27 @@
     <string name="nav_tools">টুলস</string>
     <string name="nav_library">লাইব্রেরি</string>
 
-    <!-- Common actions -->
-    <string name="action_copy">কপি</string>
-    <string name="action_share">শেয়ার</string>
-    <string name="action_delete">মুছুন</string>
-    <string name="action_clear">পরিষ্কার</string>
-    <string name="action_search">খুঁজুন</string>
-    <string name="action_settings">সেটিংস</string>
-    <string name="action_close">বন্ধ</string>
-    <string name="action_ok">ঠিক আছে</string>
-    <string name="action_cancel">বাতিল</string>
+    <!-- About -->
+    <string name="about_title">OmniCalc সম্পর্কে</string>
+    <string name="about_developer">ডেভেলপার / মালিক</string>
+    <string name="about_owner">Shohan Khan</string>
+    <string name="about_email">helloiamshohan@gmail.com</string>
+    <string name="about_contact">ইমেইলে যোগাযোগ করুন</string>
+    <string name="about_email_fallback">কোনো ইমেইল অ্যাপ পাওয়া যায়নি — অনুগ্রহ করে helloiamshohan@gmail.com-এ পাঠান</string>
+    <string name="about_description">OmniCalc একটি অফলাইন-ফার্স্ট ক্যালকুলেটর স্যুট: ইতিহাস ও মেমরিসহ সাধারণ ক্যালকুলেটর, বৈজ্ঞানিক মোড, সূত্র ও একক টুল, এবং আপনার হিসাব, পছন্দ ও পছন্দনির্ধারণ সংরক্ষণকারী লাইব্রেরি — বাংলাদেশকে সর্বাগ্রে মনে রেখে সাজানো, তারপর সবার জন্য।</string>
+    <string name="about_features">• লাইভ প্রিভিউসহ সাধারণ ও বৈজ্ঞানিক ক্যালকুলেটর\n• ইতিহাস, পছন্দ ও মেমরি\n• ৳, দক্ষিণ এশিয়া গ্রুপিং ও বাংলা সংখ্যাসহ বাংলা/ইংরেজি ইন্টারফেস\n• কোণ, শতকরা, নির্ভুলতা ও গ্রুপিং কনফিগযোগ্য\n• সম্পূর্ণ অফলাইন — কোনো অ্যাকাউন্ট নয়, কোনো ট্র্যাকিং নয়</string>
+    <string name="about_privacy">গোপনীয়তা</string>
+    <string name="about_privacy_body">OmniCalc কোনো অনুমতি চায় না, কোনো ডেটা সংগ্রহ করে না, কোনো সার্ভারে সংযোগ করে না। হিসাব, পছন্দ ও পছন্দনির্ধারণ শুধু এই ডিভাইসে সংরক্ষিত হয়; লাইব্রেরি → ইতিহাস বা সেটিংস → রিসেট থেকে যেকোনো সময় মুছে ফেলা যায়।</string>
+    <string name="about_licenses">ওপেন-সোর্স স্বীকৃতি</string>
+    <string name="about_licenses_body">নির্মিত: Kotlin, Jetpack Compose, AndroidX (Core, Splash Screen, AppCompat), Material Components, Room ও DataStore — প্রতিটি নিজ নিজ ওপেন-সোর্স লাইসেন্সে (Apache 2.0 / BSD)। OmniCalc ডেভেলপার কর্তৃক “যেমন আছে তেমনই” প্রদান করা হয়।</string>
 
-    <!-- Errors -->
-    <string name="error_generic">কিছু একটা সমস্যা হয়েছে। ইনপুট পরীক্ষা করুন।</string>
+    <!-- Global search -->
+    <string name="search_title">খুঁজুন</string>
+    <string name="search_hint">মোড, টুল, সেটিংস খুঁজুন</string>
+    <string name="search_no_results">কিছু পাওয়া যায়নি। “বিজ্ঞান”, “ইতিহাস” বা “ভাষা” লিখুন।</string>
+
+    <!-- Interim destination notes -->
+    <string name="interim_formulas">সূত্রগুলোর ক্যাটালগ পরবর্তী ধাপে তৈরি হচ্ছে — এখানে কোনো ভুয়া এন্ট্রি নেই।</string>
+    <string name="interim_tools">একক, মুদ্রা, জমি, বেতন ও প্রোগ্রামার টুল পরবর্তী ধাপে তৈরি হচ্ছে।</string>
+    <string name="interim_note">এই সৎ প্লেসহোল্ডার বদলে আসবে পূর্ণাঙ্গ, কার্যকর স্ক্রিন।</string>
 </resources>
